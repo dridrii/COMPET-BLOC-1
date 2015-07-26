@@ -11,58 +11,8 @@
 			<include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
 		</jsp-property-group>
 	</jsp-config>
-	
-	<servlet>
-		<servlet-name>LoginJuge</servlet-name>
-		<servlet-class>com.cptbloc.servlet.LoginJuge</servlet-class>
-	</servlet>
 
-	<servlet-mapping>
-		<servlet-name>LoginJuge</servlet-name>
-		<url-pattern>/Log-in</url-pattern>
-	</servlet-mapping>
-	
 	<servlet>
-		<servlet-name>IndexJuge</servlet-name>
-		<servlet-class>com.cptbloc.servlet.IndexJuge</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>IndexJuge</servlet-name>
-		<url-pattern>/Index-Juge</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>IndexPublic</servlet-name>
-		<servlet-class>com.cptbloc.servlet.IndexPublic</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>IndexPublic</servlet-name>
-		<url-pattern>/Index-Public</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>ResumeNvJuge</servlet-name>
-		<servlet-class>com.cptbloc.servlet.ResumeNvJuge</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>ResumeNvJuge</servlet-name>
-		<url-pattern>/Resume-Nv-Juge</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>ConnexionJuge</servlet-name>
-		<servlet-class>com.cptbloc.servlet.ConnexionJuge</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>ConnexionJuge</servlet-name>
-		<url-pattern>/Sign-in</url-pattern>
-	</servlet-mapping>
-	
-		<servlet>
 		<servlet-name>GestionTestJDBC</servlet-name>
 		<servlet-class>com.cptbloc.servlet.GestionTestJDBC</servlet-class>
 	</servlet>
@@ -71,6 +21,5 @@
 		<servlet-name>GestionTestJDBC</servlet-name>
 		<url-pattern>/test_jdbc</url-pattern>
 	</servlet-mapping>
-	
 
 </web-app>
