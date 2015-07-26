@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app>
+<web-app
+  xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0">
+	
 	<jsp-config>
 		<jsp-property-group>
 			<url-pattern>*.jsp</url-pattern>
 			<include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
 		</jsp-property-group>
 	</jsp-config>
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	version="3.0">
+	
 	<servlet>
 		<servlet-name>LoginJuge</servlet-name>
 		<servlet-class>com.cptbloc.servlet.LoginJuge</servlet-class>
@@ -51,7 +52,7 @@
 		<url-pattern>/Resume-Nv-Juge</url-pattern>
 	</servlet-mapping>
 	
-		<servlet>
+	<servlet>
 		<servlet-name>ConnexionJuge</servlet-name>
 		<servlet-class>com.cptbloc.servlet.ConnexionJuge</servlet-class>
 	</servlet>
@@ -61,4 +62,15 @@
 		<url-pattern>/Sign-in</url-pattern>
 	</servlet-mapping>
 	
+		<servlet>
+		<servlet-name>GestionTestJDBC</servlet-name>
+		<servlet-class>com.cptbloc.servlet.GestionTestJDBC</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>GestionTestJDBC</servlet-name>
+		<url-pattern>/test_jdbc</url-pattern>
+	</servlet-mapping>
+	
+
 </web-app>

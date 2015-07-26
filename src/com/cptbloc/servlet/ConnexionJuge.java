@@ -3,6 +3,7 @@ package com.cptbloc.servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import com.cptbloc.beans.Juge;
 import com.cptbloc.forms.ConnexionJugeForm;
 
 @SuppressWarnings( "serial" )
+@WebServlet( name = "ConnexionJuge", urlPatterns = "/Sign-in" )
 public class ConnexionJuge extends HttpServlet {
     public static final String ATT_JUGE         = "juge";
     public static final String ATT_FORM         = "form";

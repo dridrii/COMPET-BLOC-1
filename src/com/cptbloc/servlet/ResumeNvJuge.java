@@ -3,11 +3,13 @@ package com.cptbloc.servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings( "serial" )
+@WebServlet( "/ResumeNvJuge" )
 public class ResumeNvJuge extends HttpServlet {
     public static final String VUE_NV_JUGE = "/WEB-INF/Resume-Nv-Juge.jsp";
 

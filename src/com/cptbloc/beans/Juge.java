@@ -1,13 +1,13 @@
 package com.cptbloc.beans;
 
 public class Juge {
-    private String id;
+    private Long   id;
     private String pseudo;
     private String nom;
     private String prenom;
     private String mdp;
 
-    public String getId() {
+    public Long getId() {
         return this.id;
     }
 
@@ -27,7 +27,7 @@ public class Juge {
         return this.mdp;
     }
 
-    public void setId( String id ) {
+    public void setId( Long id ) {
         this.id = id;
     }
 
