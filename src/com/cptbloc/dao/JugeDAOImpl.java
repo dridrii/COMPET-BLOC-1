@@ -26,7 +26,7 @@ public class JugeDAOImpl implements JugeDAO {
     }
 
     @Override
-    public Juge trouver( long id ) throws DAOEXception {
+    public Juge trouver( long id ) throws DAOException {
         return trouver( SQL_SELECT_PAR_ID, id );
     }
 

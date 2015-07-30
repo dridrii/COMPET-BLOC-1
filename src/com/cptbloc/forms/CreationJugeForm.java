@@ -18,10 +18,10 @@ public final class CreationJugeForm {
 
     private String              resultat;
     private Map<String, String> erreurs        = new HashMap<String, String>();
-    private JugeDAO             jugeDao;
+    private JugeDAO             jugeDAO;
 
     public CreationJugeForm( JugeDAO jugeDAO ) {
-        this.jugeDao = jugeDao;
+        this.jugeDAO = jugeDAO;
     }
 
     public Map<String, String> getErreurs() {
@@ -40,15 +40,15 @@ public final class CreationJugeForm {
         String validmdp = getValeurChamp( request, CHAMP_VALIDMDP );
 
         Juge juge = new Juge();
-
-        traiterPseudo( pseudo, juge );
-        traiterNom( nom, juge );
-        traiterPrenom( prenom, juge );
-        traiterMdp( mpd, validmdp, juge );
-
         try {
+
+            traiterPseudo( pseudo, juge );
+            traiterNom( nom, juge );
+            traiterPrenom( prenom, juge );
+            traiterMdp( mdp, validmdp, juge );
+
             if ( erreurs.isEmpty() ) {
-                jugeDao.creer( juge );
+                jugeDAO.creer( juge );
                 resultat = "Succès de l'inscription.";
             } else {
                 resultat = "Echec de l'inscription.";
@@ -130,7 +130,7 @@ public final class CreationJugeForm {
                 throw new FormValidationException(
                         "Les mots de passe entrés sont différents, merci de les saisir à nouveau." );
             } else if ( mdp.trim().length() < 6 ) {
-                throw new Exception( "Les mots de passe doivent contenir au moins 3 caractères." );
+                throw new FormValidationException( "Les mots de passe doivent contenir au moins 3 caractères." );
             }
         } else {
             throw new FormValidationException( "Merci de saisir et confirmer votre mot de passe." );

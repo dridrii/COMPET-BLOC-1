@@ -16,7 +16,7 @@ import com.cptbloc.forms.CreationJugeForm;
 @SuppressWarnings( "serial" )
 @WebServlet( "/LoginJuge" )
 public class LoginJuge extends HttpServlet {
-    public static final String CONF_DAO_FACTORY = "DaoFactory";
+    public static final String CONF_DAO_FACTORY = "daofactory";
 
     public static final String ATT_JUGE         = "juge";
     public static final String ATT_FORM         = "form";
@@ -28,7 +28,7 @@ public class LoginJuge extends HttpServlet {
 
     public void init() throws ServletException {
         /* Récupérations d'une instance de notre dao juge */
-        this.jugeDAO = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getJugeDao();
+        this.jugeDAO = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getJugeDAO();
     }
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
