@@ -14,7 +14,7 @@ import com.cptbloc.dao.JugeDAO;
 import com.cptbloc.forms.CreationJugeForm;
 
 @SuppressWarnings( "serial" )
-@WebServlet( "/LoginJuge" )
+@WebServlet( "/Log-in" )
 public class LoginJuge extends HttpServlet {
     public static final String CONF_DAO_FACTORY = "daofactory";
 
