@@ -40,13 +40,13 @@ public final class CreationJugeForm {
         String validmdp = getValeurChamp( request, CHAMP_VALIDMDP );
 
         Juge juge = new Juge();
-        try {
-
+    
             traiterPseudo( pseudo, juge );
             traiterNom( nom, juge );
             traiterPrenom( prenom, juge );
             traiterMdp( mdp, validmdp, juge );
-
+            
+        try {
             if ( erreurs.isEmpty() ) {
                 jugeDAO.creer( juge );
                 resultat = "Succès de l'inscription.";
@@ -55,6 +55,7 @@ public final class CreationJugeForm {
             }
 
         } catch ( DAOException e ) {
+            setErreur( "imprévu", "Erreur imprévue lors de la création." );
             resultat = "Echec de l'insciption : une erreur imprévue et survenue, merci de réessayer dans quelques instants.";
             e.printStackTrace();
         }
