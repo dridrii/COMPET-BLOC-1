@@ -16,13 +16,13 @@ public class JugeDAOImpl implements JugeDAO {
 
     private static final String SQL_SELECT        = "SELECT id, pseudo, nom, prenom, mdp FROM Juge ORDER BY id";
     private static final String SQL_SELECT_PAR_ID = "SELECT id, pseudo, nom, prenom, mdp FROM Juge WHERE id = ?";
-    private static final String SQL_INSERT        = "INSERT INTO Juge (pseudo, nom, prenom, mdp) VALUES (?, ?, ?, ?, NOW())";
+    private static final String SQL_INSERT        = "INSERT INTO Juge (pseudo, nom, prenom, mdp) VALUES (?, ?, ?, ?)";
     private static final String SQL_DELETE_PAR_ID = "DELETE FROM Juge WHERE id =?";
 
-    private DAOFactory          DaoFactory;
+    private DAOFactory          daoFactory;
 
-    JugeDAOImpl( DAOFactory DaoFactory ) {
-        this.DaoFactory = DaoFactory;
+    JugeDAOImpl( DAOFactory daoFactory ) {
+        this.daoFactory = daoFactory;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class JugeDAOImpl implements JugeDAO {
         ResultSet valeursAutoGenerees = null;
 
         try {
-            connexion = DaoFactory.getConnection();
+            connexion = daoFactory.getConnection();
             preparedStatement = initialisationRequetePreparee( connexion, SQL_INSERT, true,
                     juge.getPseudo(),
                     juge.getNom(),
@@ -69,7 +69,7 @@ public class JugeDAOImpl implements JugeDAO {
         List<Juge> juge = new ArrayList<Juge>();
 
         try {
-            connection = DaoFactory.getConnection();
+            connection = daoFactory.getConnection();
             preparedStatement = connection.prepareStatement( SQL_SELECT );
             resultSet = preparedStatement.executeQuery();
             while ( resultSet.next() ) {
@@ -90,7 +90,7 @@ public class JugeDAOImpl implements JugeDAO {
         PreparedStatement preparedStatement = null;
 
         try {
-            connexion = DaoFactory.getConnection();
+            connexion = daoFactory.getConnection();
             preparedStatement = initialisationRequetePreparee( connexion, SQL_DELETE_PAR_ID, true, client.getId() );
             int statut = preparedStatement.executeUpdate();
             if ( statut == 0 ) {
@@ -118,7 +118,7 @@ public class JugeDAOImpl implements JugeDAO {
 
         try {
             /* Récupération d'une connexion depuis la Factory */
-            connexion = DaoFactory.getConnection();
+            connexion = daoFactory.getConnection();
             /*
              * Préparation de la requête avec les objets passés en arguments
              * (ici, uniquement une adresse email) et exécution.

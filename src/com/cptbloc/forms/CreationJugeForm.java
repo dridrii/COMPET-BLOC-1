@@ -33,20 +33,20 @@ public final class CreationJugeForm {
     }
 
     public Juge creerJuge( HttpServletRequest request ) {
-        String pseudo = getValeurChamp( request, CHAMP_PSEUDO );
+    	String pseudo = getValeurChamp( request, CHAMP_PSEUDO );
         String nom = getValeurChamp( request, CHAMP_NOM );
         String prenom = getValeurChamp( request, CHAMP_PRENOM );
         String mdp = getValeurChamp( request, CHAMP_MDP );
         String validmdp = getValeurChamp( request, CHAMP_VALIDMDP );
 
         Juge juge = new Juge();
-    
+        try {
             traiterPseudo( pseudo, juge );
             traiterNom( nom, juge );
-            traiterPrenom( prenom, juge );
+            traiterPrenom( prenom, juge ); 
             traiterMdp( mdp, validmdp, juge );
             
-        try {
+        
             if ( erreurs.isEmpty() ) {
                 jugeDAO.creer( juge );
                 resultat = "Succès de l'inscription.";
@@ -131,7 +131,7 @@ public final class CreationJugeForm {
                 throw new FormValidationException(
                         "Les mots de passe entrés sont différents, merci de les saisir à nouveau." );
             } else if ( mdp.trim().length() < 6 ) {
-                throw new FormValidationException( "Les mots de passe doivent contenir au moins 3 caractères." );
+                throw new FormValidationException( "Les mots de passe doivent contenir au moins 6 caractères." );
             }
         } else {
             throw new FormValidationException( "Merci de saisir et confirmer votre mot de passe." );
