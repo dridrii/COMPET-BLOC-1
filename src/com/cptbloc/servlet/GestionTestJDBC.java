@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.cptbloc.bdd.TestJDBC;
 
 @SuppressWarnings( "serial" )
+@WebServlet( "/testjdbc" )
 public class GestionTestJDBC extends HttpServlet {
     public static final String ATT_MESSAGES = "messages";
     public static final String VUE          = "/WEB-INF/testjdbc.jsp";

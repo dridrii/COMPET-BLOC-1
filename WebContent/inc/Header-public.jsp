@@ -1,4 +1,4 @@
-<link href="boostrap/dist/css/bootstrap.css" rel="stylesheet">
+<link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 <link href="inc/css/tuto.css" rel="stylesheet">
 
 <header>
@@ -9,22 +9,47 @@
 
 	<div class="container">
 		<nav class="navbar navbar-default">
-			<ul class="nav navbar-nav">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/COMPET-BLOC-1/Index-Juge">COMPET-BLOC</a>
+			</div>
+			<div>
+				<ul class="nav navbar-nav">
 
-				<li><a href="#">COMPET-BLOC</a></li>
-				
-				<li><a href="#">News</a></li>
+					<li><a href="#">News</a></li>
 
-				<li class="dropdown">
-					<%--Menu déroulant blocs --%> <a data-toggle="dropdown" href="#">Blocs
-						<b class="caret"></b>
-				</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Résultat Blocs</a></li>
-					</ul>
-				</li>
+					<li class="dropdown">
+						<%--Menu déroulant blocs --%> <a data-toggle="dropdown" href="#">Blocs
+							<b class="caret"></b>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Résultat Blocs</a></li>
+						</ul>
+					</li>
 
-			</ul>
+				</ul>
+
+				<ul class="nav navbar-default navbar-nav navbar-right">
+					<%--Deuxième partie de la barre de navigation --%>
+					<li class="dropdown">
+						<%--Menu déroulant classement --%> <a data-toggle="dropdown"
+						href="">Login <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<c:if test="${empty sessionScope.sessionUtilisateur}">
+								<li><a class="glyphicon glyphicon-user"
+									href="/COMPET-BLOC-1/Log-in"> Sign Up</a></li>
+							</c:if>
+							<c:if test="${empty sessionScope.sessionUtilisateur}">
+								<li><a class="glyphicon glyphicon-log-in"
+									href="/COMPET-BLOC-1/Sign-in"> Login</a></li>
+							</c:if>
+							<c:if test="${!empty sessionScope.sessionUtilisateur}">
+								<li><a class="glyphicon glyphicon-log-out"
+									href="/COMPET-BLOC-1/Index-Public"> Log-out</a></li>
+							</c:if>
+						</ul>
+					</li>
+				</ul>
+			</div>
 		</nav>
 		<%--barre de navigation --%>
 	</div>
@@ -32,8 +57,8 @@
 
 
 
-	<script src="boostrap/js/jquery.js"></script>
-	<script src="boostrap/dist/js/bootstrap.js"></script>
+	<script src="<c:url value="/bootstrap/js/jquery.js"/>"></script>
+	<script src="<c:url value="/bootstrap/dist/js/bootstrap.js"/>"></script>
 </header>
 
 

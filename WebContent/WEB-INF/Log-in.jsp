@@ -7,7 +7,7 @@
 <meta charset="utf-8" />
 <title>Log-in</title>
 <link type="text/css"
-	href=" <c:url value="boostrap/dist/css/bootstrap.css"/>" />
+	href=" <c:url value="bootstrap/dist/css/bootstrap.css"/>" />
 
 <link type="text/css" rel="stylsheet" href=" <c:url value="inc/css/tuto.css"/>" />
 

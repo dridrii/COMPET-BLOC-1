@@ -19,7 +19,7 @@ public class LogoutJuge extends HttpServlet {
         HttpSession session = request.getSession();
         session.invalidate();
 
-        /* Redirection vers le Site du Zéro ! */
+        /* Redirection vers la page d'acceuil ! */
         response.sendRedirect( URL_REDIRECTION );
 
     }

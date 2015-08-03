@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings( "serial" )
-@WebServlet( "/JUGE/Index-Juge" )
-public class IndexJuge extends HttpServlet {
-    public static final String VUE_INDEX_JUGE = "/JUGE/Index-Juge.jsp";
+@WebServlet( "/Liste-Juge" )
+public class ListeJuge extends HttpServlet {
+    public static final String VUE_LISTE_JUGE = "/ListeJuge.jsp";
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher( VUE_INDEX_JUGE ).forward( request, response );
+        this.getServletContext().getRequestDispatcher( VUE_LISTE_JUGE ).forward( request, response );
     }
 }

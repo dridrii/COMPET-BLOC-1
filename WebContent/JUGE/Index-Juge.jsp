@@ -4,12 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
-<title>COMPET-BLOC</title>
-<link type="text/css"
-	href=" <c:url value="/boostrap/dist/css/bootstrap.css"/>" />
+<meta charset="utf-8" /><title>COMPET-BLOC</title>
 
-<link type="text/css" href=" <c:url value="/inc/css/tuto.css"/>" />
+<link href="<c:url value="/bootstrap/dist/css/bootstrap.css"/>" rel="stylesheet">
+<link href="<c:url value="/inc/css/tuto.css"/>" rel="stylesheet">
 
 
 </head>
