@@ -17,7 +17,6 @@
 			<div>
 				<ul class="nav navbar-nav">
 					<%--Première partie de la barre de navigation --%>
-
 					<li><a href="#">News</a></li>
 
 					<li class="dropdown">
@@ -70,7 +69,7 @@
 							</c:if>
 							<c:if test="${!empty sessionScope.sessionUtilisateur}">
 								<li><a class="glyphicon glyphicon-log-out"
-									href="/COMPET-BLOC-1/Index-Public"> Log-out</a></li>
+									href="/COMPET-BLOC-1/LogoutJuge"> Log-out</a></li>
 							</c:if>
 						</ul>
 					</li>

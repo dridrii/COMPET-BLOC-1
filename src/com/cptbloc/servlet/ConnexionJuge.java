@@ -20,6 +20,7 @@ public class ConnexionJuge extends HttpServlet {
 
     public static final String ATT_SESSION_JUGE = "sessionUtilisateur";
     public static final String VUE              = "/WEB-INF/Sign-in.jsp";
+    public static final String VUE_SUCCESS      = "/JUGE/Index-Juge.jsp";
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         /* Affichage de la page de connexion */
@@ -50,6 +51,11 @@ public class ConnexionJuge extends HttpServlet {
         request.setAttribute( ATT_FORM, form );
         request.setAttribute( ATT_JUGE, juge );
 
-        this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+        if ( form.getErreurs().isEmpty() ) {
+            this.getServletContext().getRequestDispatcher( VUE_SUCCESS ).forward( request, response );
+        } else {
+            this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+        }
+
     }
 }

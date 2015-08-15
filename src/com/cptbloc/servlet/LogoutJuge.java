@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 @SuppressWarnings( "serial" )
 @WebServlet( "/LogoutJuge" )
 public class LogoutJuge extends HttpServlet {
-    public static final String URL_REDIRECTION = "localhost:8080/COMPET-BLOC-1/Index-Public";
+    public static final String URL_REDIRECTION = "http://localhost:8080/COMPET-BLOC-1/Index";
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         /* Récupération et destruction de la session en cours */
