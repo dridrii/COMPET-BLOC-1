@@ -7,7 +7,7 @@ import com.cptbloc.beans.Juge;
 public interface JugeDAO {
     void creer( Juge juge ) throws DAOException;
 
-    Juge trouver( long id ) throws DAOException;
+    Juge trouver( String pseudo ) throws DAOException;
 
     List<Juge> lister() throws DAOException;
 

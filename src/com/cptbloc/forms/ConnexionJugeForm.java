@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.cptbloc.beans.Juge;
+import com.cptbloc.dao.DAOException;
+import com.cptbloc.dao.JugeDAO;
 
 public final class ConnexionJugeForm {
     private static final String CHAMP_PSEUDO = "pseudo";
@@ -13,6 +15,11 @@ public final class ConnexionJugeForm {
 
     private String              resultat;
     private Map<String, String> erreurs      = new HashMap<String, String>();
+    private JugeDAO             jugeDAO;
+
+    public ConnexionJugeForm( JugeDAO jugeDAO ) {
+        this.jugeDAO = jugeDAO;
+    }
 
     public String getResultat() {
         return resultat;
@@ -29,55 +36,69 @@ public final class ConnexionJugeForm {
 
         Juge juge = new Juge();
 
-        /* Validation du champ pseudo. */
+        try {
+            traiterPseudo( pseudo, juge );
+            traiterMdp( mdp, juge );
+
+            if ( erreurs.isEmpty() ) {
+                resultat = "Succès de la connexion.";
+            } else {
+                resultat = "Échec de la connexion.";
+            }
+
+        }
+
+        catch ( DAOException e ) {
+            setErreur( "imprévu", "Erreur imprévue lors de la validation." );
+            resultat = "Echec de la connextion : une erreur imprévue et survenue, merci de réessayer dans quelques instants.";
+            e.printStackTrace();
+        }
+        return juge;
+    }
+
+    private void traiterPseudo( String pseudo, Juge juge ) {
         try {
             validationPseudo( pseudo );
-        } catch ( Exception e ) {
+        } catch ( FormValidationException e ) {
             setErreur( CHAMP_PSEUDO, e.getMessage() );
         }
         juge.setPseudo( pseudo );
+    }
 
-        /* Validation du champ mot de passe. */
+    private void traiterMdp( String mdp, Juge juge ) {
         try {
             validationMdp( mdp );
-        } catch ( Exception e ) {
+        } catch ( FormValidationException e ) {
             setErreur( CHAMP_MDP, e.getMessage() );
         }
         juge.setMdp( mdp );
-
-        /* Initialisation du résultat global de la validation. */
-        if ( erreurs.isEmpty() ) {
-            resultat = "Succès de la connexion.";
-        } else {
-            resultat = "Échec de la connexion.";
-        }
-
-        return juge;
     }
 
     /**
      * Valide l'adresse email saisie.
      */
-    private void validationPseudo( String pseudo ) throws Exception {
+    private void validationPseudo( String pseudo ) throws FormValidationException {
         if ( pseudo != null ) {
             if ( pseudo.length() < 6 ) {
-                throw new Exception( "Votre pseudo doit contenir au moin 6 caractères" );
+                throw new FormValidationException( "Votre pseudo doit contenir au moin 6 caractères" );
+            } else if ( jugeDAO.trouver( pseudo ) == null ) {
+                throw new FormValidationException( "Ce pseudo n'existe pas, inscrivez-vous!" );
             }
         } else {
-            throw new Exception( "Merci d'entrer un pseudo" );
+            throw new FormValidationException( "Merci d'entrer un pseudo" );
         }
     }
 
     /**
      * Valide le mot de passe saisi.
      */
-    private void validationMdp( String mdp ) throws Exception {
+    private void validationMdp( String mdp ) throws FormValidationException {
         if ( mdp != null ) {
             if ( mdp.length() < 3 ) {
-                throw new Exception( "Le mot de passe doit contenir au moins 3 caractères." );
+                throw new FormValidationException( "Le mot de passe doit contenir au moins 3 caractères." );
             }
         } else {
-            throw new Exception( "Merci de saisir votre mot de passe." );
+            throw new FormValidationException( "Merci de saisir votre mot de passe." );
         }
     }
 

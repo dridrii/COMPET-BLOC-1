@@ -10,17 +10,28 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.cptbloc.beans.Juge;
+import com.cptbloc.dao.DAOFactory;
+import com.cptbloc.dao.JugeDAO;
 import com.cptbloc.forms.ConnexionJugeForm;
 
 @SuppressWarnings( "serial" )
 @WebServlet( name = "ConnexionJuge", urlPatterns = "/Sign-in" )
 public class ConnexionJuge extends HttpServlet {
+    public static final String CONF_DAO_FACTORY = "daofactory";
+
     public static final String ATT_JUGE         = "juge";
     public static final String ATT_FORM         = "form";
 
     public static final String ATT_SESSION_JUGE = "sessionUtilisateur";
     public static final String VUE              = "/WEB-INF/Sign-in.jsp";
     public static final String VUE_SUCCESS      = "/JUGE/Index-Juge.jsp";
+
+    private JugeDAO            jugeDAO;
+
+    public void init() throws ServletException {
+        /* Récupérations d'une instance de notre dao juge */
+        this.jugeDAO = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getJugeDAO();
+    }
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         /* Affichage de la page de connexion */
@@ -29,7 +40,7 @@ public class ConnexionJuge extends HttpServlet {
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         /* Préparation de l'objet formulaire */
-        ConnexionJugeForm form = new ConnexionJugeForm();
+        ConnexionJugeForm form = new ConnexionJugeForm( jugeDAO );
 
         /* Traitement de la requête et récupération du bean en résultant */
         Juge juge = form.connecterJuge( request );

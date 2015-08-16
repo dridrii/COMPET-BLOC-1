@@ -14,10 +14,10 @@ import com.cptbloc.beans.Juge;
 
 public class JugeDAOImpl implements JugeDAO {
 
-    private static final String SQL_SELECT        = "SELECT id, pseudo, nom, prenom, mdp FROM Juge ORDER BY id";
-    private static final String SQL_SELECT_PAR_ID = "SELECT id, pseudo, nom, prenom, mdp FROM Juge WHERE id = ?";
-    private static final String SQL_INSERT        = "INSERT INTO Juge (pseudo, nom, prenom, mdp) VALUES (?, ?, ?, ?)";
-    private static final String SQL_DELETE_PAR_ID = "DELETE FROM Juge WHERE id =?";
+    private static final String SQL_SELECT            = "SELECT id, pseudo, nom, prenom, mdp FROM Juge ORDER BY id";
+    private static final String SQL_SELECT_PAR_PSEUDO = "SELECT id, pseudo, nom, prenom, mdp FROM Juge WHERE pseudo = ?";
+    private static final String SQL_INSERT            = "INSERT INTO Juge (pseudo, nom, prenom, mdp) VALUES (?, ?, ?, ?)";
+    private static final String SQL_DELETE_PAR_ID     = "DELETE FROM Juge WHERE id =?";
 
     private DAOFactory          daoFactory;
 
@@ -26,11 +26,11 @@ public class JugeDAOImpl implements JugeDAO {
     }
 
     @Override
-    public Juge trouver( long id ) throws DAOException {
-        return trouver( SQL_SELECT_PAR_ID, id );
+    public Juge trouver( String pseudo ) throws DAOException {
+        return trouver( SQL_SELECT_PAR_PSEUDO, pseudo );
     }
 
-    /* Implémentation de la méthode définie dans l'interface UtilisateurDao */
+    /* Implémentation de la méthode définie dans l'interface JugeDAO */
     @Override
     public void creer( Juge juge ) throws DAOException {
         Connection connexion = null;
@@ -107,8 +107,8 @@ public class JugeDAOImpl implements JugeDAO {
 
     /*
      * Méthode générique utilisée pour retourner un utilisateur depuis la base
-     * de données, correspondant à la requête SQL donnée prenant en paramètres
-     * les objets passés en argument.
+     * de données, correspondant à n; la requête SQL donnée prenant en
+     * paramètres les objets passés en argument.
      */
     private Juge trouver( String sql, Object... objets ) throws DAOException {
         Connection connexion = null;
@@ -145,6 +145,7 @@ public class JugeDAOImpl implements JugeDAO {
      */
     private static Juge map( ResultSet resultSet ) throws SQLException {
         Juge juge = new Juge();
+
         juge.setId( resultSet.getLong( "id" ) );
         juge.setPseudo( resultSet.getString( "pseudo" ) );
         juge.setNom( resultSet.getString( "nom" ) );

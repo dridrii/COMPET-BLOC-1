@@ -21,7 +21,7 @@ public class LoginJuge extends HttpServlet {
     public static final String ATT_JUGE         = "juge";
     public static final String ATT_FORM         = "form";
 
-    public static final String VUE_SUCCESS      = "/WEB-INF/Resume-Nv-Juge.jsp";
+    public static final String VUE_SUCCESS      = "/JUGE/Resume-Nv-Juge.jsp";
     public static final String VUE_FORM         = "/WEB-INF/Log-in.jsp";
 
     private JugeDAO            jugeDAO;
