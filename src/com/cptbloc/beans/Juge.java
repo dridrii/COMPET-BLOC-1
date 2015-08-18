@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 @SuppressWarnings( "serial" )
 public class Juge implements Serializable {
+
     private Long   id;
     private String pseudo;
     private String nom;
