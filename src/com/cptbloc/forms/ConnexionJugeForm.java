@@ -33,6 +33,8 @@ public final class ConnexionJugeForm {
         /* Récupération des champs du formulaire */
         String pseudo = getValeurChamp( request, CHAMP_PSEUDO );
         String mdp = getValeurChamp( request, CHAMP_MDP );
+        String pwd;
+        String pseudobdd;
 
         Juge juge = new Juge();
 
@@ -41,7 +43,19 @@ public final class ConnexionJugeForm {
             traiterMdp( mdp, juge );
 
             if ( erreurs.isEmpty() ) {
-                resultat = "Succès de la connexion.";
+
+                jugeDAO.trouver( pseudo );
+                pwd = juge.getMdp();
+                pseudobdd = juge.getPseudo();
+
+                traiterConnection( pwd, pseudobdd, mdp, pseudo );
+
+                if ( erreurs.isEmpty() ) {
+                    resultat = "Succès de la connextion.";
+                } else {
+                    resultat = "Echec de la connexion.";
+                }
+
             } else {
                 resultat = "Échec de la connexion.";
             }
@@ -72,6 +86,23 @@ public final class ConnexionJugeForm {
             setErreur( CHAMP_MDP, e.getMessage() );
         }
         juge.setMdp( mdp );
+    }
+
+    private void traiterConnection( String pwd, String pseudobdd, String mdp, String pseudo ) {
+        try {
+            validationConnection( pwd, pseudobdd, mdp, pseudo );
+        } catch ( FormValidationException e ) {
+            setErreur( CHAMP_MDP, e.getMessage() );
+        }
+    }
+
+    private void validationConnection( String pwd, String pseudobdd, String mdp, String pseudo )
+            throws FormValidationException {
+        if ( pwd == mdp && pseudobdd == pseudo ) {
+
+        } else {
+            throw new FormValidationException( "Connextion échouer !" );
+        }
     }
 
     /**
