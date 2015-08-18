@@ -1,6 +1,8 @@
 package com.cptbloc.beans;
 
-public class Juge {
+import java.io.Serializable;
+
+public class Juge implements Serializable{
     private Long   id;
     private String pseudo;
     private String nom;
