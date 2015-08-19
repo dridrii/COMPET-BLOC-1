@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.cptbloc.beans.Juge;
+import com.cptbloc.beans.Jugec;
 import com.cptbloc.dao.DAOException;
 import com.cptbloc.dao.JugeDAO;
 
@@ -33,9 +34,8 @@ public final class ConnexionJugeForm {
         /* Récupération des champs du formulaire */
         String pseudo = getValeurChamp( request, CHAMP_PSEUDO );
         String mdp = getValeurChamp( request, CHAMP_MDP );
-        String pwd;
-        String pseudobdd;
-
+        String pwd = null;
+        String pseudobdd = null;
         Juge juge = new Juge();
 
         try {
@@ -44,9 +44,12 @@ public final class ConnexionJugeForm {
 
             if ( erreurs.isEmpty() ) {
 
-                jugeDAO.trouver( pseudo );
-                pwd = juge.getMdp();
-                pseudobdd = juge.getPseudo();
+                Jugec jugec = null;
+
+                jugeDAO.trouverconnection( pseudo );
+
+                pwd = jugec.getMdp();
+                pseudobdd = jugec.getPseudo();
 
                 traiterConnection( pwd, pseudobdd, mdp, pseudo );
 
@@ -88,7 +91,8 @@ public final class ConnexionJugeForm {
         juge.setMdp( mdp );
     }
 
-    private void traiterConnection( String pwd, String pseudobdd, String mdp, String pseudo ) {
+    private void traiterConnection( String pwd, String pseudobdd, String mdp,
+            String pseudo ) {
         try {
             validationConnection( pwd, pseudobdd, mdp, pseudo );
         } catch ( FormValidationException e ) {
@@ -96,12 +100,12 @@ public final class ConnexionJugeForm {
         }
     }
 
-    private void validationConnection( String pwd, String pseudobdd, String mdp, String pseudo )
-            throws FormValidationException {
+    private void validationConnection( String pwd, String pseudobdd, String
+            mdp, String pseudo ) throws FormValidationException {
         if ( pwd == mdp && pseudobdd == pseudo ) {
 
         } else {
-            throw new FormValidationException( "Connextion échouer !" );
+            throw new FormValidationException( "Connection échouer !" );
         }
     }
 

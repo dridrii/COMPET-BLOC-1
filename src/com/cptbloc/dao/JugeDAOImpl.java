@@ -11,11 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cptbloc.beans.Juge;
+import com.cptbloc.beans.Jugec;
 
 public class JugeDAOImpl implements JugeDAO {
 
     private static final String SQL_SELECT            = "SELECT id, pseudo, nom, prenom, mdp FROM Juge ORDER BY id";
     private static final String SQL_SELECT_PAR_PSEUDO = "SELECT id, pseudo, nom, prenom, mdp FROM Juge WHERE pseudo = ?";
+    private static final String SQL_SELECT_CONNECTION = "SELECT id, pseudo, nom, prenom, mdp FROM Juge WHERE pseudo = ?";
     private static final String SQL_INSERT            = "INSERT INTO Juge (pseudo, nom, prenom, mdp) VALUES (?, ?, ?, ?)";
     private static final String SQL_DELETE_PAR_ID     = "DELETE FROM Juge WHERE id =?";
 
@@ -28,6 +30,11 @@ public class JugeDAOImpl implements JugeDAO {
     @Override
     public Juge trouver( String pseudo ) throws DAOException {
         return trouver( SQL_SELECT_PAR_PSEUDO, pseudo );
+    }
+
+    @Override
+    public Jugec trouverconnection( String pseudo ) throws DAOException {
+        return trouverconnection( SQL_SELECT_CONNECTION, pseudo );
     }
 
     /* Implémentation de la méthode définie dans l'interface JugeDAO */
@@ -73,7 +80,7 @@ public class JugeDAOImpl implements JugeDAO {
             preparedStatement = connection.prepareStatement( SQL_SELECT );
             resultSet = preparedStatement.executeQuery();
             while ( resultSet.next() ) {
-                juge.add( map( resultSet ) );
+                juge.add( map1( resultSet ) );
             }
         } catch ( SQLException e ) {
             throw new DAOException( e );
@@ -127,7 +134,7 @@ public class JugeDAOImpl implements JugeDAO {
             resultSet = preparedStatement.executeQuery();
             /* Parcours de la ligne de données retournée dans le ResultSet */
             if ( resultSet.next() ) {
-                juge = map( resultSet );
+                juge = map1( resultSet );
             }
         } catch ( SQLException e ) {
             throw new DAOException( e );
@@ -138,12 +145,51 @@ public class JugeDAOImpl implements JugeDAO {
         return juge;
     }
 
+    private Jugec trouverconnection( String sql, Object... objets ) throws DAOException {
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Jugec jugec = null;
+
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            /*
+             * Préparation de la requête avec les objets passés en arguments
+             * (ici, uniquement une adresse email) et exécution.
+             */
+            preparedStatement = initialisationRequetePreparee( connexion, sql, false, objets );
+            resultSet = preparedStatement.executeQuery();
+            /* Parcours de la ligne de données retournée dans le ResultSet */
+            if ( resultSet.next() ) {
+                jugec = map( resultSet );
+            }
+        } catch ( SQLException e ) {
+            throw new DAOException( e );
+        } finally {
+            fermeturesSilencieuses( resultSet, preparedStatement, connexion );
+        }
+
+        return jugec;
+    }
+
     /*
      * Simple méthode utilitaire permettant de faire la correspondance (le
      * mapping) entre une ligne issue de la table des utilisateurs (un
      * ResultSet) et un bean Utilisateur.
      */
-    private static Juge map( ResultSet resultSet ) throws SQLException {
+    private static Jugec map( ResultSet resultSet ) throws SQLException {
+        Jugec jugec = new Jugec();
+
+        jugec.setId( resultSet.getLong( "id" ) );
+        jugec.setPseudo( resultSet.getString( "pseudo" ) );
+        jugec.setNom( resultSet.getString( "nom" ) );
+        jugec.setPrenom( resultSet.getString( "prenom" ) );
+        jugec.setMdp( resultSet.getString( "mdp" ) );
+        return jugec;
+    }
+
+    private static Juge map1( ResultSet resultSet ) throws SQLException {
         Juge juge = new Juge();
 
         juge.setId( resultSet.getLong( "id" ) );

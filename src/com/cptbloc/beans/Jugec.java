@@ -2,7 +2,7 @@ package com.cptbloc.beans;
 
 import java.io.Serializable;
 
-public class Juge implements Serializable {
+public class Jugec implements Serializable {
 
     /**
      * 

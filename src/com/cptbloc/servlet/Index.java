@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet( "/Index" )
 @SuppressWarnings( "serial" )
 public class Index extends HttpServlet {
-    public static final String VUE_INDEX_JUGE   = "/WEB-INF/Index-Juge.jsp";
     public static final String VUE_INDEX_PUBLIC = "/WEB-INF/Index.jsp";
     public static final String ATT_SESSION_USER = "sessionUtilisateur";
 

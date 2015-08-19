@@ -52,7 +52,7 @@ public class ConnexionJuge extends HttpServlet {
          * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
          * Utilisateur à la session, sinon suppression du bean de la session.
          */
-        if ( form.getErreurs().isEmpty() ) {
+        if ( form.getErreurs().isEmpty() && form.getResultat().isEmpty() ) {
             session.setAttribute( ATT_SESSION_JUGE, juge );
         } else {
             session.setAttribute( ATT_SESSION_JUGE, null );
@@ -62,9 +62,10 @@ public class ConnexionJuge extends HttpServlet {
         request.setAttribute( ATT_FORM, form );
         request.setAttribute( ATT_JUGE, juge );
 
-        if ( form.getErreurs().isEmpty() ) {
+        if ( form.getErreurs().isEmpty() && form.getResultat().isEmpty() ) {
             this.getServletContext().getRequestDispatcher( VUE_SUCCESS ).forward( request, response );
         } else {
+
             this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
         }
 
