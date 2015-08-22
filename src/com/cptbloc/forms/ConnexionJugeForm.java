@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.cptbloc.beans.Juge;
-import com.cptbloc.beans.Jugec;
 import com.cptbloc.dao.DAOException;
 import com.cptbloc.dao.JugeDAO;
 
@@ -34,8 +33,10 @@ public final class ConnexionJugeForm {
         /* Récupération des champs du formulaire */
         String pseudo = getValeurChamp( request, CHAMP_PSEUDO );
         String mdp = getValeurChamp( request, CHAMP_MDP );
-        String pwd = null;
-        String pseudobdd = null;
+
+        Juge pwd = null;
+        Juge pseudobdd = null;
+
         Juge juge = new Juge();
 
         try {
@@ -44,16 +45,12 @@ public final class ConnexionJugeForm {
 
             if ( erreurs.isEmpty() ) {
 
-                Jugec jugec = null;
+                /* traiterConnection( pwd, pseudobdd, mdp, pseudo ); */
 
-                jugeDAO.trouverconnection( pseudo );
+                juge = jugeDAO.trouverconnection( pseudo, mdp );
 
-                pwd = jugec.getMdp();
-                pseudobdd = jugec.getPseudo();
+                if ( juge != null && ( pseudo.equals( juge.getPseudo() ) && mdp.equals( juge.getMdp() ) ) ) {
 
-                traiterConnection( pwd, pseudobdd, mdp, pseudo );
-
-                if ( erreurs.isEmpty() ) {
                     resultat = "Succès de la connextion.";
                 } else {
                     resultat = "Echec de la connexion.";
@@ -91,24 +88,18 @@ public final class ConnexionJugeForm {
         juge.setMdp( mdp );
     }
 
-    private void traiterConnection( String pwd, String pseudobdd, String mdp,
-            String pseudo ) {
-        try {
-            validationConnection( pwd, pseudobdd, mdp, pseudo );
-        } catch ( FormValidationException e ) {
-            setErreur( CHAMP_MDP, e.getMessage() );
-        }
-    }
-
-    private void validationConnection( String pwd, String pseudobdd, String
-            mdp, String pseudo ) throws FormValidationException {
-        if ( pwd == mdp && pseudobdd == pseudo ) {
-
-        } else {
-            throw new FormValidationException( "Connection échouer !" );
-        }
-    }
-
+    /*
+     * private void traiterConnection( String pwd, String pseudobdd, String mdp,
+     * String pseudo ) { try { validationConnection( pwd, pseudobdd, mdp, pseudo
+     * ); } catch ( FormValidationException e ) { setErreur( CHAMP_MDP,
+     * e.getMessage() ); } }
+     * 
+     * private void validationConnection( Juge pwd, String pseudobdd, String
+     * mdp, String pseudo ) throws FormValidationException { if ( pwd == mdp &&
+     * pseudobdd == pseudo ) {
+     * 
+     * } else { throw new FormValidationException( "Connection échouer !" ); } }
+     */
     /**
      * Valide l'adresse email saisie.
      */
