@@ -34,9 +34,6 @@ public final class ConnexionJugeForm {
         String pseudo = getValeurChamp( request, CHAMP_PSEUDO );
         String mdp = getValeurChamp( request, CHAMP_MDP );
 
-        Juge pwd = null;
-        Juge pseudobdd = null;
-
         Juge juge = new Juge();
 
         try {
@@ -45,26 +42,22 @@ public final class ConnexionJugeForm {
 
             if ( erreurs.isEmpty() ) {
 
-                /* traiterConnection( pwd, pseudobdd, mdp, pseudo ); */
-
                 juge = jugeDAO.trouverconnection( pseudo, mdp );
 
-                if ( juge != null && ( pseudo.equals( juge.getPseudo() ) && mdp.equals( juge.getMdp() ) ) ) {
-
-                    resultat = "Succès de la connextion.";
-                } else {
-                    resultat = "Echec de la connexion.";
+                traiterConnection( pseudo, mdp, juge );
+                if ( erreurs.isEmpty() ) {
+                    resultat = "Succès de la connection.";
                 }
 
             } else {
-                resultat = "Échec de la connexion.";
+                resultat = "Échec de la connection.";
             }
 
         }
 
         catch ( DAOException e ) {
             setErreur( "imprévu", "Erreur imprévue lors de la validation." );
-            resultat = "Echec de la connextion : une erreur imprévue et survenue, merci de réessayer dans quelques instants.";
+            resultat = "Echec de la connection : une erreur imprévue et survenue, merci de réessayer dans quelques instants.";
             e.printStackTrace();
         }
         return juge;
@@ -88,18 +81,23 @@ public final class ConnexionJugeForm {
         juge.setMdp( mdp );
     }
 
-    /*
-     * private void traiterConnection( String pwd, String pseudobdd, String mdp,
-     * String pseudo ) { try { validationConnection( pwd, pseudobdd, mdp, pseudo
-     * ); } catch ( FormValidationException e ) { setErreur( CHAMP_MDP,
-     * e.getMessage() ); } }
-     * 
-     * private void validationConnection( Juge pwd, String pseudobdd, String
-     * mdp, String pseudo ) throws FormValidationException { if ( pwd == mdp &&
-     * pseudobdd == pseudo ) {
-     * 
-     * } else { throw new FormValidationException( "Connection échouer !" ); } }
-     */
+    private void traiterConnection( String pseudo, String mdp, Juge juge ) {
+        try {
+            validationConnection( pseudo, mdp, juge );
+        } catch ( FormValidationException e ) {
+            setErreur( CHAMP_MDP, e.getMessage() );
+        }
+    }
+
+    private void validationConnection( String pseudo, String mdp, Juge juge ) throws FormValidationException {
+        if ( juge != null && ( pseudo.equals( juge.getPseudo() ) && mdp.equals( juge.getMdp() ) ) ) {
+
+        } else {
+            resultat = ( "Échec de la connection !" );
+            throw new FormValidationException( "Erreur, mots de passe incorrect !" );
+        }
+    }
+
     /**
      * Valide l'adresse email saisie.
      */
