@@ -23,7 +23,7 @@
 						<%--Menu déroulant participant --%> <a data-toggle="dropdown"
 						href="#">Participant <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Nouveau Participant</a></li>
+							<li><a href="/COMPET-BLOC-1/JUGE/NouveauParticipant"">Nouveau Participant</a></li>
 							<li><a href="#">Liste Participant</a></li>
 						</ul>
 					</li>

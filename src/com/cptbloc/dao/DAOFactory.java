@@ -99,4 +99,8 @@ public class DAOFactory {
     public JugeDAO getJugeDAO() {
         return new JugeDAOImpl( this );
     }
+
+    public ParticipantDAO getParticipantDAO() {
+        return new ParticipantDAOImpl( this );
+    }
 }

@@ -1,16 +1,16 @@
 package com.cptbloc.beans;
 
 public class Participant {
-    private String id;
+    private Long   id;
     private String dossard;
     private String nom;
     private String prenom;
     private String age;
     private String sex;
     private String categorie;
-    private String resultatfn;
+    private String resultat;
 
-    public String getId() {
+    public Long getId() {
         return this.id;
     }
 
@@ -38,11 +38,11 @@ public class Participant {
         return this.categorie;
     }
 
-    public String getResultatfn() {
-        return this.resultatfn;
+    public String getResultat() {
+        return this.resultat;
     }
 
-    public void setId( String id ) {
+    public void setId( Long id ) {
         this.id = id;
     }
 
@@ -70,7 +70,7 @@ public class Participant {
         this.categorie = categorie;
     }
 
-    public void setResultatfn( String resultatfn ) {
-        this.resultatfn = resultatfn;
+    public void setResultat( String resultat ) {
+        this.resultat = resultat;
     }
 }
