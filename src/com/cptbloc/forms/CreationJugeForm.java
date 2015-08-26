@@ -33,7 +33,7 @@ public final class CreationJugeForm {
     }
 
     public Juge creerJuge( HttpServletRequest request ) {
-    	String pseudo = getValeurChamp( request, CHAMP_PSEUDO );
+        String pseudo = getValeurChamp( request, CHAMP_PSEUDO );
         String nom = getValeurChamp( request, CHAMP_NOM );
         String prenom = getValeurChamp( request, CHAMP_PRENOM );
         String mdp = getValeurChamp( request, CHAMP_MDP );
@@ -43,10 +43,9 @@ public final class CreationJugeForm {
         try {
             traiterPseudo( pseudo, juge );
             traiterNom( nom, juge );
-            traiterPrenom( prenom, juge ); 
+            traiterPrenom( prenom, juge );
             traiterMdp( mdp, validmdp, juge );
-            
-        
+
             if ( erreurs.isEmpty() ) {
                 jugeDAO.creer( juge );
                 resultat = "Succès de l'inscription.";
@@ -103,6 +102,8 @@ public final class CreationJugeForm {
         if ( pseudo != null ) {
             if ( pseudo.length() < 6 ) {
                 throw new FormValidationException( "Votre pseudo doit contenir au moin 6 caractères" );
+            } else if ( jugeDAO.trouver( pseudo ) != null ) {
+                throw new FormValidationException( "Ce pseudo existe déjà !" );
             }
         } else {
             throw new FormValidationException( "Merci d'entrer un pseudo" );

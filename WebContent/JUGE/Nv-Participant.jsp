@@ -16,7 +16,7 @@
 	<c:import url="/inc/Header-juge.jsp" />
 	
  	<div class="container">
-		<form  method="post" action="<c:url value="/NouveauParticipant"/>">
+		<form  method="post" action="<c:url value="/JUGE/NouveauParticipant"/>">
 				<legend>Inscription d'un nouveau participant</legend>
 			<fieldset >
 

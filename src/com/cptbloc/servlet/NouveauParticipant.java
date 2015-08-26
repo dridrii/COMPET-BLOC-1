@@ -39,7 +39,7 @@ public class NouveauParticipant extends HttpServlet {
 
         CreationParticipantForm form = new CreationParticipantForm( participantDAO );
 
-        Participant participant = creerParticipant( request );
+        Participant participant = form.creerParticipant( request );
 
         request.setAttribute( ATT_PARTICIPANT, participant );
         request.setAttribute( ATT_FORM, form );
