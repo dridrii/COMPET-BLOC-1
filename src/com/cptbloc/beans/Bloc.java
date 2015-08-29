@@ -6,8 +6,9 @@ public class Bloc {
     private String couleurdif;
     private String couleurvoie;
     private String ouvreur;
+    private String nbreussi;
     private String valeurinit;
-    private String valeurfn;
+    private String valeurfinal;
 
     public String getId() {
         return this.id;

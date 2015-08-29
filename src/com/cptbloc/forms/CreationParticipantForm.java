@@ -47,8 +47,8 @@ public final class CreationParticipantForm {
             traiterNom( nom, participant );
             traiterPrenom( prenom, participant );
             traiterAge( age, participant );
-            /* traiterSex( sex, participant ); */
-            /* traiterCategorie( categorie, participant ); */
+            participant.setSex( sex );
+            traiterCategorie( sex, age, categorie, participant );
 
             if ( erreurs.isEmpty() ) {
                 participantDAO.creer( participant );
@@ -101,15 +101,20 @@ public final class CreationParticipantForm {
         participant.setAge( age );
     }
 
-    /*
-     * private void traiterSex( String sex, Participant participant ) { try {
-     * validationSex( sex ); } catch ( FormValidationException e ) { setErreur(
-     * CHAMP_SEX, e.getMessage() ); } participant.setSex( participant ); }
-     */
+    private void traiterCategorie( String age, String sex, String categorie, Participant participant ) {
+        try {
+            validationCategorie( age, sex );
+        } catch ( FormValidationException e ) {
+            setErreur( CHAMP_AGE, e.getMessage() );
+        }
+        participant.setAge( categorie );
+    }
+
     private void validationDossard( String dossard ) throws FormValidationException {
         if ( dossard != null ) {
-            if ( participantDAO.trouver( dossard ) == null ) {
+            if ( participantDAO.trouver( dossard ) != null ) {
                 throw new FormValidationException( "Ce dossard est déjà attribué" );
+
             }
         } else {
             throw new FormValidationException( "Merci d'entrer un numéro de dossard" );
@@ -134,16 +139,16 @@ public final class CreationParticipantForm {
 
     private void validationAge( String age ) throws FormValidationException {
         if ( age != null ) {
+
+        } else {
             throw new FormValidationException( "Merci d'insérer votre age !" );
         }
     }
 
-    /*
-     * private void validationSex(String sex) throws FormValidationException {
-     * if (sex == homme){
-     * 
-     * } }
-     */
+    private void validationCategorie( String age, String sex ) throws FormValidationException {
+
+    }
+
     private void setErreur( String champ, String message ) {
         erreurs.put( champ, message );
     }

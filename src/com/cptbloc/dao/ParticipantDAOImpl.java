@@ -14,8 +14,8 @@ import com.cptbloc.beans.Participant;
 
 public class ParticipantDAOImpl implements ParticipantDAO {
 
-    private static final String SQL_SELECT            = "SELECT id, dossard, nom, prenom, age, sex, categorie, resultat FROM participant ORDER BY dossard";
-    private static final String SQL_SELECT_PAR_PSEUDO = "SELECT id, dossard, nom, prenom, age, sex, categorie, resultat FROM participant WHERE dossard = ?";
+    private static final String SQL_SELECT            = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorie, resultat FROM participant ORDER BY dossard";
+    private static final String SQL_SELECT_PAR_PSEUDO = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorie, resultat FROM participant WHERE dossard = ?";
     private static final String SQL_INSERT            = "INSERT INTO participant (dossard, nom, prenom, age, sex, categorie) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SQL_DELETE_PAR_ID     = "DELETE FROM participant WHERE id =?";
 
@@ -149,7 +149,7 @@ public class ParticipantDAOImpl implements ParticipantDAO {
     private static Participant map( ResultSet resultSet ) throws SQLException {
         Participant participant = new Participant();
 
-        participant.setId( resultSet.getLong( "id" ) );
+        participant.setId( resultSet.getLong( "idParticipant" ) );
         participant.setDossard( resultSet.getString( "dossard" ) );
         participant.setNom( resultSet.getString( "nom" ) );
         participant.setPrenom( resultSet.getString( "prenom" ) );

@@ -36,12 +36,6 @@
 <input type="radio" id="sexParticipant" name="sexParticipant" value="Femme" />Femme
 <br />
 
-<label for="categorieParticipant">Catégorie<span class="requis">*</span></label>
-<input type="text" id="categorieParticipant" name="categorieParticipant"
-	value="<c:out value="${participant.categorie}"/>" size="30"
-	maxlength="30" />
-<span class="erreur">${form.erreurs['categorieParticipant']}</span>
-<br />
 
 <span class="erreur">${form.erreurs['numParticipant']}</span>
 <br />
