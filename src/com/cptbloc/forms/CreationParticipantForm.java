@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.cptbloc.beans.Participant;
+import com.cptbloc.dao.CategorieDAO;
 import com.cptbloc.dao.DAOException;
 import com.cptbloc.dao.ParticipantDAO;
 
@@ -20,9 +21,14 @@ public final class CreationParticipantForm {
     private String              resultat;
     private Map<String, String> erreurs         = new HashMap<String, String>();
     private ParticipantDAO      participantDAO;
+    private CategorieDAO        categorieDAO;
 
     public CreationParticipantForm( ParticipantDAO participantDAO ) {
         this.participantDAO = participantDAO;
+    }
+
+    public CreationParticipantForm( CategorieDAO categorieDAO ) {
+        this.categorieDAO = categorieDAO;
     }
 
     public Map<String, String> getErreurs() {
@@ -92,7 +98,7 @@ public final class CreationParticipantForm {
         participant.setPrenom( prenom );
     }
 
-    private void traiterAge( String age, Participant participant ) {
+    private void traiterAge( int age, Participant participant ) {
         try {
             validationAge( age );
         } catch ( FormValidationException e ) {
@@ -101,13 +107,13 @@ public final class CreationParticipantForm {
         participant.setAge( age );
     }
 
-    private void traiterCategorie( String age, String sex, String categorie, Participant participant ) {
+    private void traiterCategorie( int age, String sex, String categorie, Participant participant ) {
         try {
-            validationCategorie( age, sex );
+            validationCategorie( age, sex, categorie );
         } catch ( FormValidationException e ) {
             setErreur( CHAMP_AGE, e.getMessage() );
         }
-        participant.setAge( categorie );
+        participant.setCategorie( categorie );
     }
 
     private void validationDossard( String dossard ) throws FormValidationException {
@@ -137,16 +143,18 @@ public final class CreationParticipantForm {
         }
     }
 
-    private void validationAge( String age ) throws FormValidationException {
-        if ( age != null ) {
+    private void validationAge( int age ) throws FormValidationException {
+        if ( age > 0 ) {
 
         } else {
             throw new FormValidationException( "Merci d'insérer votre age !" );
         }
     }
 
-    private void validationCategorie( String age, String sex ) throws FormValidationException {
+    private void validationCategorie( int age, String sex, String categorie ) throws FormValidationException {
+        if ( categorieDAO.trouverAgeHomme( age ) > age ) {
 
+        }
     }
 
     private void setErreur( String champ, String message ) {

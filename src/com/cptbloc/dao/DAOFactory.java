@@ -103,4 +103,9 @@ public class DAOFactory {
     public ParticipantDAO getParticipantDAO() {
         return new ParticipantDAOImpl( this );
     }
+
+    public CategorieDAO getCategorieDAO() {
+        return new CategorieDAOImpl( this );
+
+    }
 }
