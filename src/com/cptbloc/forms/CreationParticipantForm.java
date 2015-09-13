@@ -54,7 +54,7 @@ public final class CreationParticipantForm {
             traiterPrenom( prenom, participant );
             traiterAge( age, participant );
             participant.setSex( sex );
-            traiterCategorie( sex, age, categorie, participant );
+            /* traiterCategorie( sex, age, categorie, participant ); */
 
             if ( erreurs.isEmpty() ) {
                 participantDAO.creer( participant );
@@ -98,7 +98,7 @@ public final class CreationParticipantForm {
         participant.setPrenom( prenom );
     }
 
-    private void traiterAge( int age, Participant participant ) {
+    private void traiterAge( String age, Participant participant ) {
         try {
             validationAge( age );
         } catch ( FormValidationException e ) {
@@ -143,7 +143,11 @@ public final class CreationParticipantForm {
         }
     }
 
-    private void validationAge( int age ) throws FormValidationException {
+    private void validationAge( String age ) throws FormValidationException {
+
+        String str = age;
+        int age = Integer.parseInt( str );
+
         if ( age > 0 ) {
 
         } else {
@@ -152,6 +156,7 @@ public final class CreationParticipantForm {
     }
 
     private void validationCategorie( int age, String sex, String categorie ) throws FormValidationException {
+
         if ( categorieDAO.trouverAgeHomme( age ) > age ) {
 
         }

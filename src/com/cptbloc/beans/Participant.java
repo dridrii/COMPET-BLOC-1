@@ -5,7 +5,7 @@ public class Participant {
     private String dossard;
     private String nom;
     private String prenom;
-    private int    age;
+    private String age;
     private String sex;
     private String categorie;
     private String resultat;
@@ -26,7 +26,7 @@ public class Participant {
         return this.prenom;
     }
 
-    public int getAge() {
+    public String getAge() {
         return this.age;
     }
 
@@ -58,7 +58,7 @@ public class Participant {
         this.prenom = prenom;
     }
 
-    public void setAge( int age ) {
+    public void setAge( String age ) {
         this.age = age;
     }
 
