@@ -7,7 +7,7 @@ public class Participant {
     private String prenom;
     private String age;
     private String sex;
-    private String categorie;
+    private String categorieparti;
     private String resultat;
 
     public Long getId() {
@@ -35,7 +35,7 @@ public class Participant {
     }
 
     public String getCategorie() {
-        return this.categorie;
+        return this.categorieparti;
     }
 
     public String getResultat() {
@@ -66,8 +66,8 @@ public class Participant {
         this.sex = sex;
     }
 
-    public void setCategorie( String categorie ) {
-        this.categorie = categorie;
+    public void setCategorie( String categorieparti ) {
+        this.categorieparti = categorieparti;
     }
 
     public void setResultat( String resultat ) {

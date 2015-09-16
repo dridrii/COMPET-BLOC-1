@@ -1,19 +1,19 @@
 package com.cptbloc.beans;
 
 public class Categorie {
-    private Long   idDefCategorie;
-    private String ageConfigHomme;
-    private String ageConfigFemme;
+    private Long idDefCategorie;
+    private int  ageConfigHomme;
+    private int  ageConfigFemme;
 
     public Long getId() {
         return this.idDefCategorie;
     }
 
-    public String getageConfigHomme() {
+    public int getageConfigHomme() {
         return this.ageConfigHomme;
     }
 
-    public String getageConfigFemme() {
+    public int getageConfigFemme() {
         return this.ageConfigFemme;
     }
 
@@ -21,11 +21,11 @@ public class Categorie {
         this.idDefCategorie = idDefCategorie;
     }
 
-    public void setageConfigHomme( String ageConfigHomme ) {
+    public void setageConfigHomme( int ageConfigHomme ) {
         this.ageConfigHomme = ageConfigHomme;
     }
 
-    public void setageConfigFemme( String ageConfigFemme ) {
+    public void setageConfigFemme( int ageConfigFemme ) {
         this.ageConfigFemme = ageConfigFemme;
     }
 

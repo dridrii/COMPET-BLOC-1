@@ -22,12 +22,12 @@ public class CategorieDAOImpl implements CategorieDAO {
     }
 
     @Override
-    public Categorie trouverAgeHomme( int age ) throws DAOException {
+    public Categorie trouverAgeHomme( String age ) throws DAOException {
         return trouverAgeHomme( SQL_SELECT_AGE_HOMME, age );
     }
 
     @Override
-    public Categorie trouverAgeFemme( int age ) throws DAOException {
+    public Categorie trouverAgeFemme( String age ) throws DAOException {
         return trouverAgeFemme( SQL_SELECT_AGE_FEMME, age );
     }
 
@@ -102,8 +102,8 @@ public class CategorieDAOImpl implements CategorieDAO {
         Categorie categorie = new Categorie();
 
         categorie.setId( resultSet.getLong( "idDefCategorie" ) );
-        categorie.setId( resultSet.getLong( "ageConfigHomme" ) );
-        categorie.setId( resultSet.getLong( "ageConfigFemme" ) );
+        categorie.setageConfigHomme( resultSet.getInt( "ageConfigHomme" ) );
+        categorie.setageConfigFemme( resultSet.getInt( "ageConfigFemme" ) );
         return categorie;
     }
 

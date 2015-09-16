@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.cptbloc.beans.Categorie;
 import com.cptbloc.beans.Participant;
 import com.cptbloc.dao.CategorieDAO;
 import com.cptbloc.dao.DAOException;
@@ -45,7 +46,11 @@ public final class CreationParticipantForm {
         String prenom = getValeurChamp( request, CHAMP_PRENOM );
         String age = getValeurChamp( request, CHAMP_AGE );
         String sex = getValeurChamp( request, CHAMP_SEX );
-        String categorie = getValeurChamp( request, CHAMP_CATEGORIE );
+        String categorieparti = getValeurChamp( request, CHAMP_CATEGORIE );
+
+        Categorie categorie = new Categorie();
+
+        categorie = categorieDAO.trouverAgeHomme( age );
 
         Participant participant = new Participant();
         try {
@@ -54,7 +59,7 @@ public final class CreationParticipantForm {
             traiterPrenom( prenom, participant );
             traiterAge( age, participant );
             participant.setSex( sex );
-            /* traiterCategorie( sex, age, categorie, participant ); */
+            traiterCategorie( sex, age, categorie, participant );
 
             if ( erreurs.isEmpty() ) {
                 participantDAO.creer( participant );
@@ -107,13 +112,13 @@ public final class CreationParticipantForm {
         participant.setAge( age );
     }
 
-    private void traiterCategorie( int age, String sex, String categorie, Participant participant ) {
+    private void traiterCategorie( String age, String sex,, String categorieparti, Categorie categorie, Participant participant ) {
         try {
-            validationCategorie( age, sex, categorie );
+            validationCategorie( age, sex, categorie, participant );
         } catch ( FormValidationException e ) {
             setErreur( CHAMP_AGE, e.getMessage() );
         }
-        participant.setCategorie( categorie );
+        participant.setCategorieparti( categorieparti );
     }
 
     private void validationDossard( String dossard ) throws FormValidationException {
@@ -146,18 +151,22 @@ public final class CreationParticipantForm {
     private void validationAge( String age ) throws FormValidationException {
 
         String str = age;
-        int age = Integer.parseInt( str );
+        int agenum = Integer.parseInt( str );
 
-        if ( age > 0 ) {
+        if ( agenum > 0 && agenum < 99 ) {
 
         } else {
             throw new FormValidationException( "Merci d'insérer votre age !" );
         }
     }
 
-    private void validationCategorie( int age, String sex, String categorie ) throws FormValidationException {
+    private void validationCategorie( String age, String sex, Categorie categorie, Participant participant )
+            throws FormValidationException {
 
-        if ( categorieDAO.trouverAgeHomme( age ) > age ) {
+        String str = age;
+        int agenum = Integer.parseInt( str );
+
+        if ( categorieDAO.trouverAgeHomme( age ) > agenum ) {
 
         }
     }
