@@ -45,7 +45,7 @@ public class ParticipantDAOImpl implements ParticipantDAO {
                     participant.getPrenom(),
                     participant.getAge(),
                     participant.getSex(),
-                    participant.getCategorie() );
+                    participant.getCategorieparti() );
             int statut = preparedStatement.executeUpdate();
             if ( statut == 0 ) {
                 throw new DAOException( "Échec de la création de l'utilisateur, aucune ligne ajoutée dans la table." );
@@ -154,8 +154,8 @@ public class ParticipantDAOImpl implements ParticipantDAO {
         participant.setNom( resultSet.getString( "nom" ) );
         participant.setPrenom( resultSet.getString( "prenom" ) );
         participant.setSex( resultSet.getString( "sex" ) );
-        participant.setAge( resultSet.getString( "age" ) );
-        participant.setCategorie( resultSet.getString( "categorie" ) );
+        participant.setAge( resultSet.getInt( "age" ) );
+        participant.setCategorieparti( resultSet.getString( "categorie" ) );
         return participant;
     }
 

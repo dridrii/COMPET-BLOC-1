@@ -43,17 +43,17 @@ public class TestJDBC {
             messages.add( "Objet requête créé !" );
 
             /* Exécution d'une requête de lecture */
-            resultat = statement.executeQuery( "SELECT id, pseudo, nom, prenom FROM Juge;" );
-            messages.add( "Requête \"SELECT id, pseudo, nom, prenom FROM Juge;\" effectuée !" );
+            resultat = statement.executeQuery( "SELECT idJuge, pseudo, nom, prenom FROM Juge;" );
+            messages.add( "Requête \"SELECT idJuge, pseudo, nom, prenom FROM Juge;\" effectuée !" );
 
             /* Récupération des données du résultat de la requête de lecture */
             while ( resultat.next() ) {
-                int idJuge = resultat.getInt( "id" );
+                int idJuge = resultat.getInt( "idJuge" );
                 String pseudoJuge = resultat.getString( "pseudo" );
                 String nomJuge = resultat.getString( "nom" );
                 String prenomJuge = resultat.getString( "prenom" );
                 /* Formatage des données pour affichage dans la JSP finale. */
-                messages.add( "Données retournées par la requête : id = " + idJuge + ", pseudo = "
+                messages.add( "Données retournées par la requête : idJuge = " + idJuge + ", pseudo = "
                         + pseudoJuge
                         + ", nom = "
                         + nomJuge + ", prenom = " + prenomJuge + "." );

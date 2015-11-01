@@ -22,12 +22,12 @@ public class CategorieDAOImpl implements CategorieDAO {
     }
 
     @Override
-    public Categorie trouverAgeHomme( String age ) throws DAOException {
+    public Categorie trouverAgeHomme( int age ) throws DAOException {
         return trouverAgeHomme( SQL_SELECT_AGE_HOMME, age );
     }
 
     @Override
-    public Categorie trouverAgeFemme( String age ) throws DAOException {
+    public Categorie trouverAgeFemme( int age ) throws DAOException {
         return trouverAgeFemme( SQL_SELECT_AGE_FEMME, age );
     }
 

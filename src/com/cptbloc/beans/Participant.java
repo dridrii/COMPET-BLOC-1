@@ -5,7 +5,7 @@ public class Participant {
     private String dossard;
     private String nom;
     private String prenom;
-    private String age;
+    private int age;
     private String sex;
     private String categorieparti;
     private String resultat;
@@ -26,7 +26,7 @@ public class Participant {
         return this.prenom;
     }
 
-    public String getAge() {
+    public int getAge() {
         return this.age;
     }
 
@@ -34,7 +34,7 @@ public class Participant {
         return this.sex;
     }
 
-    public String getCategorie() {
+    public String getCategorieparti() {
         return this.categorieparti;
     }
 
@@ -58,7 +58,7 @@ public class Participant {
         this.prenom = prenom;
     }
 
-    public void setAge( String age ) {
+    public void setAge( int age ) {
         this.age = age;
     }
 
@@ -66,7 +66,7 @@ public class Participant {
         this.sex = sex;
     }
 
-    public void setCategorie( String categorieparti ) {
+    public void setCategorieparti( String categorieparti ) {
         this.categorieparti = categorieparti;
     }
 

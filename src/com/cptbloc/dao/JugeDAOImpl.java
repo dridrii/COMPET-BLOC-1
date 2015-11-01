@@ -14,11 +14,11 @@ import com.cptbloc.beans.Juge;
 
 public class JugeDAOImpl implements JugeDAO {
 
-    private static final String SQL_SELECT            = "SELECT id, pseudo, nom, prenom, mdp FROM Juge ORDER BY id";
-    private static final String SQL_SELECT_PAR_PSEUDO = "SELECT id, pseudo, nom, prenom, mdp FROM Juge WHERE pseudo = ?";
-    private static final String SQL_SELECT_CONNECTION = "SELECT id, pseudo, nom, prenom, mdp FROM Juge WHERE pseudo = ? and mdp = ?";
+    private static final String SQL_SELECT            = "SELECT idJuge, pseudo, nom, prenom, mdp FROM Juge ORDER BY idJuge";
+    private static final String SQL_SELECT_PAR_PSEUDO = "SELECT idJuge, pseudo, nom, prenom, mdp FROM Juge WHERE pseudo = ?";
+    private static final String SQL_SELECT_CONNECTION = "SELECT idJuge, pseudo, nom, prenom, mdp FROM Juge WHERE pseudo = ? and mdp = ?";
     private static final String SQL_INSERT            = "INSERT INTO Juge (pseudo, nom, prenom, mdp) VALUES (?, ?, ?, ?)";
-    private static final String SQL_DELETE_PAR_ID     = "DELETE FROM Juge WHERE id =?";
+    private static final String SQL_DELETE_PAR_ID     = "DELETE FROM Juge WHERE idJuge =?";
 
     private DAOFactory          daoFactory;
 
@@ -181,7 +181,7 @@ public class JugeDAOImpl implements JugeDAO {
     private static Juge map( ResultSet resultSet ) throws SQLException {
         Juge juge = new Juge();
 
-        juge.setId( resultSet.getLong( "id" ) );
+        juge.setId( resultSet.getLong( "idJuge" ) );
         juge.setPseudo( resultSet.getString( "pseudo" ) );
         juge.setNom( resultSet.getString( "nom" ) );
         juge.setPrenom( resultSet.getString( "prenom" ) );
