@@ -48,7 +48,9 @@ public final class CreationParticipantForm {
 
 		Categorie categorie = new Categorie();
 
-		categorie = categorieDAO.trouverAgeHomme(age);
+		Long idDefCategorie = Long.parseLong("1");
+		
+		categorie = categorieDAO.trouverAgeCategorie(idDefCategorie);
 
 		Participant participant = new Participant();
 		try {
