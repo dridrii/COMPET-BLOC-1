@@ -14,7 +14,7 @@ import com.cptbloc.beans.Participant;
 
 public class ParticipantDAOImpl implements ParticipantDAO {
 
-    private static final String SQL_SELECT            = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorie, resultat FROM participant ORDER BY dossard";
+    private static final String SQL_SELECT            = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorie, resultat FROM participant ORDER BY idParticipant";
     private static final String SQL_SELECT_PAR_PSEUDO = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorie, resultat FROM participant WHERE dossard = ?";
     private static final String SQL_INSERT            = "INSERT INTO participant (dossard, nom, prenom, age, sex, categorie) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SQL_DELETE_PAR_ID     = "DELETE FROM participant WHERE id =?";
@@ -52,7 +52,7 @@ public class ParticipantDAOImpl implements ParticipantDAO {
             }
             valeursAutoGenerees = preparedStatement.getGeneratedKeys();
             if ( valeursAutoGenerees.next() ) {
-                participant.setId( valeursAutoGenerees.getLong( 1 ) );
+                participant.setidParticipant( valeursAutoGenerees.getLong( 1 ) );
             } else {
                 throw new DAOException( "Échec de la création de l'utilisateur en base, aucun ID auto-généré retourné." );
             }
@@ -93,12 +93,12 @@ public class ParticipantDAOImpl implements ParticipantDAO {
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = initialisationRequetePreparee( connexion, SQL_DELETE_PAR_ID, true, participant.getId() );
+            preparedStatement = initialisationRequetePreparee( connexion, SQL_DELETE_PAR_ID, true, participant.getidParticipant() );
             int statut = preparedStatement.executeUpdate();
             if ( statut == 0 ) {
                 throw new DAOException( "Échec de la suppression du client, aucune ligne supprimée de la table." );
             } else {
-                participant.setId( null );
+                participant.setidParticipant( null );
             }
         } catch ( SQLException e ) {
             throw new DAOException( e );
@@ -149,7 +149,7 @@ public class ParticipantDAOImpl implements ParticipantDAO {
     private static Participant map( ResultSet resultSet ) throws SQLException {
         Participant participant = new Participant();
 
-        participant.setId( resultSet.getLong( "idParticipant" ) );
+        participant.setidParticipant( resultSet.getLong( "idParticipant" ) );
         participant.setDossard( resultSet.getString( "dossard" ) );
         participant.setNom( resultSet.getString( "nom" ) );
         participant.setPrenom( resultSet.getString( "prenom" ) );

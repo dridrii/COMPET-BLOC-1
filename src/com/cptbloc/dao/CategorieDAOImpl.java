@@ -21,7 +21,7 @@ public class CategorieDAOImpl implements CategorieDAO {
     }
 
     @Override
-    public Categorie trouverAgeCategorie( Long idDefCategorie ) throws DAOException {
+    public Categorie trouverAgeCategorie( int idDefCategorie ) throws DAOException {
         return trouverAgeHomme( SQL_SELECT_AGE_HOMME, idDefCategorie );
     }
 

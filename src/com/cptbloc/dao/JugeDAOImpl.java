@@ -56,7 +56,7 @@ public class JugeDAOImpl implements JugeDAO {
             }
             valeursAutoGenerees = preparedStatement.getGeneratedKeys();
             if ( valeursAutoGenerees.next() ) {
-                juge.setId( valeursAutoGenerees.getLong( 1 ) );
+                juge.setidJuge( valeursAutoGenerees.getLong( 1 ) );
             } else {
                 throw new DAOException( "Échec de la création de l'utilisateur en base, aucun ID auto-généré retourné." );
             }
@@ -97,12 +97,12 @@ public class JugeDAOImpl implements JugeDAO {
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = initialisationRequetePreparee( connexion, SQL_DELETE_PAR_ID, true, client.getId() );
+            preparedStatement = initialisationRequetePreparee( connexion, SQL_DELETE_PAR_ID, true, client.getidJuge() );
             int statut = preparedStatement.executeUpdate();
             if ( statut == 0 ) {
                 throw new DAOException( "Échec de la suppression du client, aucune ligne supprimée de la table." );
             } else {
-                client.setId( null );
+                client.setidJuge( null );
             }
         } catch ( SQLException e ) {
             throw new DAOException( e );
@@ -181,7 +181,7 @@ public class JugeDAOImpl implements JugeDAO {
     private static Juge map( ResultSet resultSet ) throws SQLException {
         Juge juge = new Juge();
 
-        juge.setId( resultSet.getLong( "idJuge" ) );
+        juge.setidJuge( resultSet.getLong( "idJuge" ) );
         juge.setPseudo( resultSet.getString( "pseudo" ) );
         juge.setNom( resultSet.getString( "nom" ) );
         juge.setPrenom( resultSet.getString( "prenom" ) );

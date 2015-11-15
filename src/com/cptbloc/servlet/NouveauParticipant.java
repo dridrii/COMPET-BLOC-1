@@ -1,12 +1,16 @@
 package com.cptbloc.servlet;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 
 import com.cptbloc.beans.Participant;
 import com.cptbloc.dao.DAOFactory;
@@ -21,6 +25,7 @@ public class NouveauParticipant extends HttpServlet {
 
 	public static final String ATT_PARTICIPANT = "participant";
 	public static final String ATT_FORM = "form";
+	public static final String SESSION_PARTICIPANTS = "participants";
 
 	public static final String VUE_SUCCESS = "/JUGE/Resume-Nv-Participant.jsp";
 	public static final String VUE_FORM = "/JUGE/Nv-Participant.jsp";
@@ -48,6 +53,24 @@ public class NouveauParticipant extends HttpServlet {
 		request.setAttribute(ATT_FORM, form);
 
 		if (form.getErreurs().isEmpty()) {
+		    
+	          /* Récupération de la map client dans la session */
+            HttpSession session = request.getSession();
+            @SuppressWarnings("unchecked")
+            Map<Long, Participant> participants = (HashMap<Long, Participant>) session.getAttribute(SESSION_PARTICIPANTS);
+
+            /* Si aucune map n'existe, alors initialisation d'une nouvele map */
+            if (participants == null) {
+                participants = new HashMap<Long, Participant>();
+            }
+
+            /* Ajout de Juge courant dans la map */
+
+            participants.put(participant.getidParticipant(), participant);
+            /* Enregistrement de la map en session */
+
+            session.setAttribute(SESSION_PARTICIPANTS, participants);
+		    
 			this.getServletContext().getRequestDispatcher(VUE_SUCCESS).forward(request, response);
 		} else {
 			this.getServletContext().getRequestDispatcher(VUE_FORM).forward(request, response);

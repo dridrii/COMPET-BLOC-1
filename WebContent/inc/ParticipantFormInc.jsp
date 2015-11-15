@@ -30,10 +30,14 @@
 <br />
 
 <label for="sexParticipant">Sex<span class="requis">*</span></label>
-<input type="radio" id="sexParticipant" name="sexParticipant" checked value="Homme" />Homme
+<input type="radio" id="sexParticipant" name="sexParticipant" checked
+	value="Homme" />
+Homme
 <br />
 <label for="sexParticipant"><span class="requis"></span></label>
-<input type="radio" id="sexParticipant" name="sexParticipant" value="Femme" />Femme
+<input type="radio" id="sexParticipant" name="sexParticipant"
+	value="Femme" />
+Femme
 <br />
 
 

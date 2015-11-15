@@ -58,6 +58,8 @@ public final class CreationJugeForm {
             resultat = "Echec de l'insciption : une erreur imprévue et survenue, merci de réessayer dans quelques instants.";
             e.printStackTrace();
         }
+        
+        
         return juge;
     }
 

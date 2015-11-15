@@ -1,22 +1,16 @@
 package com.cptbloc.beans;
 
-import java.io.Serializable;
+public class Juge {
 
-public class Juge implements Serializable {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
-
-    private Long              id;
+    private Long              idJuge;
     private String            pseudo;
     private String            nom;
     private String            prenom;
     private String            mdp;
 
-    public Long getId() {
-        return this.id;
+    public Long getidJuge() {
+        return this.idJuge;
     }
 
     public String getPseudo() {
@@ -35,8 +29,8 @@ public class Juge implements Serializable {
         return this.mdp;
     }
 
-    public void setId( Long id ) {
-        this.id = id;
+    public void setidJuge( Long idJuge ) {
+        this.idJuge = idJuge;
     }
 
     public void setPseudo( String pseudo ) {

@@ -20,8 +20,8 @@
 <br />
 
 <label for="mdpJuge">Mots de passe<span class="requis">*</span></label>
-<input type="password" id="mdpJuge" name="mdpJuge"
-	value="" size="30" maxlength="30" />
+<input type="password" id="mdpJuge" name="mdpJuge" value="" size="30"
+	maxlength="30" />
 <span class="erreur">${form.erreurs['mdpJuge']}</span>
 <br />
 

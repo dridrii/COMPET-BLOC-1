@@ -13,27 +13,27 @@
 	<div class="container">
 		<c:choose>
 			<%-- Si aucun client n'existe en session, affichage d'un message par défaut. --%>
-			<c:when test="${ empty sessionScope.juges }">
+			<c:when test="${ empty sessionScope.participants }">
 				<p class="erreur">Aucun juge enregistré.</p>
 			</c:when>
 			<%-- Sinon, affichage du tableau. --%>
 			<c:otherwise>
 				<table>
 					<tr>
-						<th>Pseudo</th>
+						<th>Dossards</th>
 						<th>Nom</th>
 						<th>Prénom</th>
 						<th class="action">Action</th>
 					</tr>
 					<%-- Parcours de la Map des clients en session, et utilisation de l'objet varStatus. --%>
-					<c:forEach items="${ sessionScope.juges }" var="mapJuges"
+					<c:forEach items="${ sessionScope.participants }" var="mapParticipants"
 						varStatus="boucle">
 						<%-- Simple test de parité sur l'index de parcours, pour alterner la couleur de fond de chaque ligne du tableau. --%>
 						<tr class="${boucle.index % 2 == 0 ? 'pair' : 'impair'}">
 							<%-- Affichage des propriétés du bean Client, qui est stocké en tant que valeur de l'entrée courante de la map --%>
-							<td><c:out value="${ mapJuges.value.pseudo }" /></td>
-							<td><c:out value="${ mapJuges.value.nom }" /></td>
-							<td><c:out value="${ mapJuges.value.prenom }" /></td>
+							<td><c:out value="${ mapParticipants.value.dossard }" /></td>
+							<td><c:out value="${ mapParticipants.value.nom }" /></td>
+							<td><c:out value="${ mapParticipants.value.prenom }" /></td>
 							<td>
 								<%-- Lien vers la servlet de suppression, avec passage du nom du client - c'est-à-dire la clé de la Map - en paramètre grâce à la balise <c:param/>. --%>
 							<td class="action"><a

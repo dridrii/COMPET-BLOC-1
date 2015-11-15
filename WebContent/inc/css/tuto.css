@@ -55,7 +55,7 @@ form input.sansLabel {
 	margin-left: 200px;
 }
 
-.requis{
+.requis {
 	color: #d60000;
 }
 
@@ -70,8 +70,6 @@ form input.sansLabel {
 body {
 	padding-top: 10px;
 }
-
-
 
 [class*="col-"], footer {
 	background-color: lightgreen;

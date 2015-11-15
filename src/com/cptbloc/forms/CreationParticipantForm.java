@@ -48,8 +48,8 @@ public final class CreationParticipantForm {
 
 		Categorie categorie = new Categorie();
 
-		Long idDefCategorie = Long.parseLong("1");
-		
+		int idDefCategorie = Integer.parseInt("1");
+
 		categorie = categorieDAO.trouverAgeCategorie(idDefCategorie);
 
 		Participant participant = new Participant();
@@ -59,7 +59,7 @@ public final class CreationParticipantForm {
 			traiterPrenom(prenom, participant);
 			traiterAge(age, participant);
 			participant.setSex(sex);
-			traiterCategorie(sex, age, categorie, participant);
+			traiterCategorie(categorie, participant);
 
 			if (erreurs.isEmpty()) {
 				participantDAO.creer(participant);
@@ -112,9 +112,9 @@ public final class CreationParticipantForm {
 		participant.setAge(age);
 	}
 
-	private void traiterCategorie( String sex, int age, Categorie categorie, Participant participant) {
+	private void traiterCategorie(Categorie categorie, Participant participant) {
 		try {
-			validationCategorie(age, sex, categorie, participant);
+			validationCategorie(categorie, participant);
 		} catch (FormValidationException e) {
 			setErreur(CHAMP_AGE, e.getMessage());
 		}
@@ -156,27 +156,25 @@ public final class CreationParticipantForm {
 		}
 	}
 
-	private void validationCategorie(int age, String sex, Categorie categorie, Participant participant)
-			throws FormValidationException {
+	private void validationCategorie(Categorie categorie, Participant participant) throws FormValidationException {
 
-		if (sex == "Homme") {
+		if (participant.getSex().equals("Homme")) {
 
-			if (age < categorie.getageConfigHomme()) {
+			if (participant.getAge() < categorie.getageConfigHomme()) {
 				participant.setCategorieparti("JuniorHomme");
-						
-			}else{
-				participant.setCategorieparti("EliteHomme");  
+
+			} else {
+				participant.setCategorieparti("EliteHomme");
 			}
 		}
-		
 
-		if (sex == "Femme") {
+		if (participant.getSex().equals("Femme")) {
 
-			if (age < categorie.getageConfigHomme()) {
-				participant.setCategorieparti("JuniorHomme");
-						
-			}else{
-				participant.setCategorieparti("EliteHomme");  
+			if (participant.getAge() < categorie.getageConfigFemme()) {
+				participant.setCategorieparti("JuniorFemme");
+
+			} else {
+				participant.setCategorieparti("EliteFemme");
 			}
 		}
 

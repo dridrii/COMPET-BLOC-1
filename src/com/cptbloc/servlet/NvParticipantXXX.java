@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings( "serial" )
 @WebServlet( "/JUGE/NvParticipant" )
-public class NvParticipant extends HttpServlet {
+public class NvParticipantXXX extends HttpServlet {
     public static final String VUE_NV_JUGE = "/JUGE/Nv-Participant.jsp";
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {

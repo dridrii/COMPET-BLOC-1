@@ -14,16 +14,17 @@
 </head>
 <body>
 	<c:import url="/inc/Header-juge.jsp" />
-	
- 	<div class="container">
-		<form  method="get" action="<c:url value="/JUGE/Index-Juge"/>">
+
+	<div class="container">
+		<form method="get" action="<c:url value="/JUGE/NouveauParticipant"/>">
 			<legend>Recap Nouveau Juge</legend>
-			<fieldset >
-				<c:import url="/inc/JugeResumeInc.jsp"/>
-				<input type="submit" value="Acceuil"/>
+			<fieldset>
+				<c:import url="/inc/ParticipantResumeInc.jsp" />
+				<input type="submit" value="Nouveau Participant"/> 
+
 			</fieldset>
 		</form>
-		
+
 	</div>
 
 

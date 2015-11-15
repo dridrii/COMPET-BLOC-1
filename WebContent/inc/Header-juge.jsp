@@ -1,4 +1,5 @@
-<link href="<c:url value="/bootstrap/dist/css/bootstrap.css"/>" rel="stylesheet">
+<link href="<c:url value="/bootstrap/dist/css/bootstrap.css"/>"
+	rel="stylesheet">
 <link href="<c:url value="/inc/css/tuto.css"/>" rel="stylesheet">
 
 <header>
@@ -23,8 +24,10 @@
 						<%--Menu déroulant participant --%> <a data-toggle="dropdown"
 						href="#">Participant <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="/COMPET-BLOC-1/JUGE/NouveauParticipant">Nouveau Participant</a></li>
-							<li><a href="#">Liste Participant</a></li>
+							<li><a href="/COMPET-BLOC-1/JUGE/NouveauParticipant">Nouveau
+									Participant</a></li>
+							<li><a href="/COMPET-BLOC-1/JUGE/Liste-Participant">Liste Participant</a></li>
+							<li><a href="/COMPET-BLOC-1/JUGE/Liste-Juge">Liste Juge</a></li>
 						</ul>
 					</li>
 
@@ -80,7 +83,7 @@
 	</div>
 	<%--container --%>
 
-	<script src="<c:url value="/bootstrap/js/jquery.js"/>"></script> 
+	<script src="<c:url value="/bootstrap/js/jquery.js"/>"></script>
 	<script src="<c:url value="/bootstrap/dist/js/bootstrap.js"/>"></script>
 
 </header>

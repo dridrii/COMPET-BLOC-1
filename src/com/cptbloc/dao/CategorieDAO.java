@@ -4,5 +4,5 @@ import com.cptbloc.beans.Categorie;
 
 public interface CategorieDAO {
 
-    Categorie trouverAgeCategorie( Long idDefCategorie ) throws DAOException;
+    Categorie trouverAgeCategorie( int idDefCategorie ) throws DAOException;
 }
