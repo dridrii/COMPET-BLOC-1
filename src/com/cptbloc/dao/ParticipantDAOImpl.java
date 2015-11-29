@@ -14,9 +14,9 @@ import com.cptbloc.beans.Participant;
 
 public class ParticipantDAOImpl implements ParticipantDAO {
 
-    private static final String SQL_SELECT            = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorie, resultat FROM participant ORDER BY idParticipant";
-    private static final String SQL_SELECT_PAR_PSEUDO = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorie, resultat FROM participant WHERE dossard = ?";
-    private static final String SQL_INSERT            = "INSERT INTO participant (dossard, nom, prenom, age, sex, categorie) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String SQL_SELECT            = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorieparti, resultat FROM participant ORDER BY idParticipant";
+    private static final String SQL_SELECT_PAR_DOSSARD = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorieparti, resultat FROM participant WHERE dossard = ?";
+    private static final String SQL_INSERT            = "INSERT INTO participant (dossard, nom, prenom, age, sex, categorieparti) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SQL_DELETE_PAR_ID     = "DELETE FROM participant WHERE id =?";
 
     private DAOFactory          daoFactory;
@@ -27,7 +27,7 @@ public class ParticipantDAOImpl implements ParticipantDAO {
 
     @Override
     public Participant trouver( String dossard ) throws DAOException {
-        return trouver( SQL_SELECT_PAR_PSEUDO, dossard );
+        return trouver( SQL_SELECT_PAR_DOSSARD, dossard );
     }
 
     /* Implémentation de la méthode définie dans l'interface participantDAO */
@@ -155,7 +155,7 @@ public class ParticipantDAOImpl implements ParticipantDAO {
         participant.setPrenom( resultSet.getString( "prenom" ) );
         participant.setSex( resultSet.getString( "sex" ) );
         participant.setAge( resultSet.getInt( "age" ) );
-        participant.setCategorieparti( resultSet.getString( "categorie" ) );
+        participant.setCategorieparti( resultSet.getString( "categorieparti" ) );
         return participant;
     }
 

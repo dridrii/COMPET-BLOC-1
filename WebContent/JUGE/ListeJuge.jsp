@@ -6,11 +6,14 @@
 <meta charset="utf-8" />
 <title>Liste des juges existants</title>
 <link type="text/css" rel="stylesheet"
-	href="<c:url value="/inc/style.css"/>" />
+	href="<c:url value="/inc/tuto.css"/>" />
 </head>
 <body>
 	<c:import url="/inc/Header-juge.jsp" />
 	<div class="container">
+	
+	<legend class="legend" id="l01" >LISTE DES JUGES</legend>
+	
 		<c:choose>
 			<%-- Si aucun client n'existe en session, affichage d'un message par défaut. --%>
 			<c:when test="${ empty sessionScope.juges }">
@@ -18,7 +21,7 @@
 			</c:when>
 			<%-- Sinon, affichage du tableau. --%>
 			<c:otherwise>
-				<table>
+				<table class="table-wight" id="t01">
 					<tr>
 						<th>Pseudo</th>
 						<th>Nom</th>

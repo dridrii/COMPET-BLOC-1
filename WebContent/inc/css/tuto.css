@@ -24,6 +24,14 @@
 	width: auto;
 }
 
+.table-wight {
+	width: 100%
+}
+
+.table-form {
+	border: 2px solid black
+}
+
 /* G�n�ral ------------------------------------------------------------------------------------- */
 body, p, legend, label, input {
 	font: normal 8pt verdana, helvetica, sans-serif;
@@ -37,6 +45,33 @@ fieldset {
 legend {
 	font-weight: bold;
 	color: #169300;
+}
+
+table, th ,td {
+	border : 2px solid black;
+	border-collapse: collapse;
+}
+
+th, td {
+	padding: 5px;
+	text-align: left;
+}
+
+table#t01 tr:nth-child(even){
+	background-color: #eee;
+}
+
+table#t01 tr:nth:child(odd){
+	background-color:#fff;
+}
+
+table#t01 th {
+	background-color: #169300;
+	color: white;
+}
+
+legend#l01 {
+	font: normal 15pt verdana;
 }
 
 /* Forms --------------------------------------------------------------------------------------- */

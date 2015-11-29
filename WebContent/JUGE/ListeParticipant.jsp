@@ -11,6 +11,8 @@
 <body>
 	<c:import url="/inc/Header-juge.jsp" />
 	<div class="container">
+	
+	<legend class="legend" id="l01" >LISTE DES PARTICIPANTS</legend>
 		<c:choose>
 			<%-- Si aucun client n'existe en session, affichage d'un message par défaut. --%>
 			<c:when test="${ empty sessionScope.participants }">
@@ -18,11 +20,15 @@
 			</c:when>
 			<%-- Sinon, affichage du tableau. --%>
 			<c:otherwise>
-				<table>
+				<table class="table-wight" id="t01">
 					<tr>
 						<th>Dossards</th>
 						<th>Nom</th>
 						<th>Prénom</th>
+						<th>Age</th>
+						<th>Sex</th>
+						<th>Catégorie</th>
+						<th>Resultat</th>
 						<th class="action">Action</th>
 					</tr>
 					<%-- Parcours de la Map des clients en session, et utilisation de l'objet varStatus. --%>
@@ -34,6 +40,10 @@
 							<td><c:out value="${ mapParticipants.value.dossard }" /></td>
 							<td><c:out value="${ mapParticipants.value.nom }" /></td>
 							<td><c:out value="${ mapParticipants.value.prenom }" /></td>
+							<td><c:out value="${ mapParticipants.value.age }" /></td>
+							<td><c:out value="${ mapParticipants.value.sex }" /></td>
+							<td><c:out value="${ mapParticipants.value.categorieparti }" /></td>
+							<td><c:out value="${ mapParticipants.value.resultat }" /></td>
 							<td>
 								<%-- Lien vers la servlet de suppression, avec passage du nom du client - c'est-à-dire la clé de la Map - en paramètre grâce à la balise <c:param/>. --%>
 							<td class="action"><a
