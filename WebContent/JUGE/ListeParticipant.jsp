@@ -16,7 +16,7 @@
 		<c:choose>
 			<%-- Si aucun client n'existe en session, affichage d'un message par défaut. --%>
 			<c:when test="${ empty sessionScope.participants }">
-				<p class="erreur">Aucun juge enregistré.</p>
+				<p class="erreur">Aucun participant enregistré.</p>
 			</c:when>
 			<%-- Sinon, affichage du tableau. --%>
 			<c:otherwise>
@@ -30,6 +30,7 @@
 						<th>Catégorie</th>
 						<th>Resultat</th>
 						<th class="action">Action</th>
+						
 					</tr>
 					<%-- Parcours de la Map des clients en session, et utilisation de l'objet varStatus. --%>
 					<c:forEach items="${ sessionScope.participants }" var="mapParticipants"
@@ -44,11 +45,12 @@
 							<td><c:out value="${ mapParticipants.value.sex }" /></td>
 							<td><c:out value="${ mapParticipants.value.categorieparti }" /></td>
 							<td><c:out value="${ mapParticipants.value.resultat }" /></td>
-							<td>
-								<%-- Lien vers la servlet de suppression, avec passage du nom du client - c'est-à-dire la clé de la Map - en paramètre grâce à la balise <c:param/>. --%>
-							<td class="action"><a
-								href="<c:url value="/suppressionClient"><c:param name="idClient" value="${ mapJuges.key }" /></c:url>">
-									<img src="<c:url value="/inc/supprimer.png"/>" alt="Supprimer" />
+						
+						<%-- Lien vers la servlet de suppression, avec passage du nom du client - c'est-à-dire la clé de la Map - en paramètre grâce à la balise <c:param/>. --%>
+						
+							<td class="action"><span class="glyphicon glyphicon-pencil"></span><a
+							href="<c:url value="/JUGE/modificationParticipant"><c:param name="idParticipant" value="${ mapClients.key }" /></c:url>">
+									<img src="<c:url value="/inc/modifier.png"/>" alt="Modifier" />
 							</a></td>
 						</tr>
 					</c:forEach>

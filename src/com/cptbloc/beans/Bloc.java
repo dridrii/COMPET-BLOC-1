@@ -1,52 +1,76 @@
 package com.cptbloc.beans;
 
 public class Bloc {
-    private String id;
-    private String Numbloc;
-    private String couleurdif;
-    private String couleurvoie;
-    private String ouvreur;
-    private String nbreussi;
-    private String valeurinit;
-    private String valeurfinal;
+    private String idBloc;
+    private String NumBloc;
+    private String CouleurDif;
+    private String CouleurVoie;
+    private String Ouvreur;
+    private String NbReussi;
+    private String ValeurInit;
+    private String ValeurFinal;
 
-    public String getId() {
-        return this.id;
+    public String getIdBloc() {
+        return this.idBloc;
     }
 
-    public String getPseudo() {
-        return this.pseudo;
+    public String getNumBloc() {
+        return this.NumBloc;
     }
 
-    public String getNom() {
-        return this.nom;
+    public String getCouleurDif() {
+        return this.CouleurDif;
     }
 
-    public String getPrenom() {
-        return this.prenom;
+    public String getCouleurVoie() {
+        return this.CouleurVoie;
     }
 
-    public String getMdp() {
-        return this.mdp;
+    public String getOuvreur() {
+        return this.Ouvreur;
+    }
+    
+    public String getNbReussi() {
+        return this.NbReussi;
+    }
+    
+    public String getValeurInit() {
+        return this.ValeurInit;
+    }
+    
+    public String getValeurFinal() {
+        return this.ValeurFinal;
     }
 
-    public void setId( String id ) {
-        this.id = id;
+    public void setIdBloc( String idBloc ) {
+        this.idBloc = idBloc;
     }
 
-    public void setPseudo( String pseudo ) {
-        this.pseudo = pseudo;
+    public void setNumBloc( String NumBloc) {
+        this.NumBloc = NumBloc;
     }
 
-    public void setNom( String nom ) {
-        this.nom = nom;
+    public void setCouleurDif( String CouleurDif) {
+        this.CouleurDif = CouleurDif;
     }
 
-    public void setPrenom( String prenom ) {
-        this.prenom = prenom;
+    public void setCouleurVoie( String CouleurVoie) {
+        this.CouleurVoie = CouleurVoie;
     }
 
-    public void setMdp( String mdp ) {
-        this.mdp = mdp;
+    public void setOuvreur( String Ouvreur) {
+        this.Ouvreur = Ouvreur;
+    }
+    
+    public void setNbReussi( String NbReussi) {
+        this.NbReussi = NbReussi;
+    }
+    
+    public void setValeurInit( String ValeurInit) {
+        this.ValeurInit = ValeurInit;
+    }
+    
+    public void setValeurFinal( String ValeurFinal) {
+        this.ValeurFinal = ValeurFinal;
     }
 }

@@ -26,7 +26,6 @@
 						<th>Pseudo</th>
 						<th>Nom</th>
 						<th>Prénom</th>
-						<th class="action">Action</th>
 					</tr>
 					<%-- Parcours de la Map des clients en session, et utilisation de l'objet varStatus. --%>
 					<c:forEach items="${ sessionScope.juges }" var="mapJuges"
@@ -37,12 +36,6 @@
 							<td><c:out value="${ mapJuges.value.pseudo }" /></td>
 							<td><c:out value="${ mapJuges.value.nom }" /></td>
 							<td><c:out value="${ mapJuges.value.prenom }" /></td>
-							<td>
-								<%-- Lien vers la servlet de suppression, avec passage du nom du client - c'est-à-dire la clé de la Map - en paramètre grâce à la balise <c:param/>. --%>
-							<td class="action"><a
-								href="<c:url value="/suppressionClient"><c:param name="idClient" value="${ mapJuges.key }" /></c:url>">
-									<img src="<c:url value="/inc/supprimer.png"/>" alt="Supprimer" />
-							</a></td>
 						</tr>
 					</c:forEach>
 				</table>
