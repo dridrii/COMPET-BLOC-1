@@ -16,11 +16,11 @@
 	<c:import url="/inc/Header-juge.jsp" />
 
 	<div class="container">
-		<form method="get" action="<c:url value="/JUGE/NouveauParticipant"/>">
+		<form method="get" action="<c:url value="/JUGE/NouveauBloc"/>">
 			<legend>Recap Nouveau Juge</legend>
 			<fieldset>
-				<c:import url="/inc/ParticipantResumeInc.jsp" />
-				<input type="submit" value="Nouveau Participant" />
+				<c:import url="/inc/BlocResumeInc.jsp" />
+				<input type="submit" value="Nouveau Bloc" />
 
 			</fieldset>
 		</form>

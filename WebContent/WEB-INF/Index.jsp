@@ -7,7 +7,8 @@
 <meta charset="utf-8" />
 <title>COMPET-BLOC</title>
 
-<link type="text/css" href=" <c:url value="/bootstrap/dist/css/bootstrap.css"/>" />
+<link type="text/css"
+	href=" <c:url value="/bootstrap/dist/css/bootstrap.css"/>" />
 <link type="text/css" href=" <c:url value="/inc/css/tuto.css"/>" />
 
 

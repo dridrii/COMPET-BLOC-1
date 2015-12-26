@@ -11,8 +11,8 @@
 <body>
 	<c:import url="/inc/Header-juge.jsp" />
 	<div class="container">
-	
-	<legend class="legend" id="l01" >LISTE DES PARTICIPANTS</legend>
+
+		<legend class="legend" id="l01">LISTE DES PARTICIPANTS</legend>
 		<c:choose>
 			<%-- Si aucun client n'existe en session, affichage d'un message par défaut. --%>
 			<c:when test="${ empty sessionScope.participants }">
@@ -30,11 +30,11 @@
 						<th>Catégorie</th>
 						<th>Resultat</th>
 						<th class="action">Action</th>
-						
+
 					</tr>
 					<%-- Parcours de la Map des clients en session, et utilisation de l'objet varStatus. --%>
-					<c:forEach items="${ sessionScope.participants }" var="mapParticipants"
-						varStatus="boucle">
+					<c:forEach items="${ sessionScope.participants }"
+						var="mapParticipants" varStatus="boucle">
 						<%-- Simple test de parité sur l'index de parcours, pour alterner la couleur de fond de chaque ligne du tableau. --%>
 						<tr class="${boucle.index % 2 == 0 ? 'pair' : 'impair'}">
 							<%-- Affichage des propriétés du bean Client, qui est stocké en tant que valeur de l'entrée courante de la map --%>
@@ -45,11 +45,11 @@
 							<td><c:out value="${ mapParticipants.value.sex }" /></td>
 							<td><c:out value="${ mapParticipants.value.categorieparti }" /></td>
 							<td><c:out value="${ mapParticipants.value.resultat }" /></td>
-						
-						<%-- Lien vers la servlet de suppression, avec passage du nom du client - c'est-à-dire la clé de la Map - en paramètre grâce à la balise <c:param/>. --%>
-						
+
+							<%-- Lien vers la servlet de suppression, avec passage du nom du client - c'est-à-dire la clé de la Map - en paramètre grâce à la balise <c:param/>. --%>
+
 							<td class="action"><span class="glyphicon glyphicon-pencil"></span><a
-							href="<c:url value="/JUGE/modificationParticipant"><c:param name="idParticipant" value="${ mapClients.key }" /></c:url>">
+								href="<c:url value="/JUGE/modificationParticipant"><c:param name="idParticipant" value="${ mapClients.key }" /></c:url>">
 									<img src="<c:url value="/inc/modifier.png"/>" alt="Modifier" />
 							</a></td>
 						</tr>

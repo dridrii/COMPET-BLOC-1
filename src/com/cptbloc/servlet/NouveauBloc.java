@@ -12,31 +12,28 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-import com.cptbloc.beans.Participant;
+import com.cptbloc.beans.Bloc;
 import com.cptbloc.dao.DAOFactory;
-import com.cptbloc.dao.ParticipantDAO;
-import com.cptbloc.dao.CategorieDAO;
-import com.cptbloc.forms.CreationParticipantForm;
+import com.cptbloc.dao.BlocDAO;
+import com.cptbloc.forms.CreationBlocForm;
 
 @SuppressWarnings("serial")
 @WebServlet("/JUGE/NouveauBloc")
 public class NouveauBloc extends HttpServlet {
 	public static final String CONF_DAO_FACTORY = "daofactory";
 
-	public static final String ATT_PARTICIPANT = "participant";
+	public static final String ATT_BLOC = "bloc";
 	public static final String ATT_FORM = "form";
-	public static final String SESSION_PARTICIPANTS = "participants";
+	public static final String SESSION_BLOCS = "blocs";
 
-	public static final String VUE_SUCCESS = "/JUGE/Resume-Nv-Participant.jsp";
-	public static final String VUE_FORM = "/JUGE/Nv-Participant.jsp";
+	public static final String VUE_SUCCESS = "/JUGE/Resume-Nv-Bloc.jsp";
+	public static final String VUE_FORM = "/JUGE/NV-Bloc.jsp";
 
-	private ParticipantDAO participantDAO;
-	private CategorieDAO categorieDAO;
+	private BlocDAO blocDAO;
 
 	public void init() throws ServletException {
-		/* Récupérations d'une instance de notre dao participant */
-		this.participantDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getParticipantDAO();
-		this.categorieDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getCategorieDAO();
+		/* Récupérations d'une instance de notre dao bloc */
+		this.blocDAO = ((DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY)).getBlocDAO();
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -45,31 +42,31 @@ public class NouveauBloc extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		CreationParticipantForm form = new CreationParticipantForm(participantDAO, categorieDAO);
+		CreationBlocForm form = new CreationBlocForm(blocDAO);
 
-		Participant participant = form.creerParticipant(request);
+		Bloc bloc = form.creerBloc(request);
 
-		request.setAttribute(ATT_PARTICIPANT, participant);
+		request.setAttribute(ATT_BLOC, bloc);
 		request.setAttribute(ATT_FORM, form);
 
 		if (form.getErreurs().isEmpty()) {
 		    
-	          /* Récupération de la map client dans la session */
+	          /* Récupération de la map bloc dans la session */
             HttpSession session = request.getSession();
             @SuppressWarnings("unchecked")
-            Map<Long, Participant> participants = (HashMap<Long, Participant>) session.getAttribute(SESSION_PARTICIPANTS);
+            Map<Long, Bloc> blocs= (HashMap<Long, Bloc>) session.getAttribute(SESSION_BLOCS);
 
             /* Si aucune map n'existe, alors initialisation d'une nouvele map */
-            if (participants == null) {
-                participants = new HashMap<Long, Participant>();
+            if (blocs == null) {
+                blocs= new HashMap<Long, Bloc>();
             }
 
-            /* Ajout de Juge courant dans la map */
+            /* Ajout de Bloc courant dans la map */
 
-            participants.put(participant.getidParticipant(), participant);
+            blocs.put(bloc.getIdBloc(), bloc);
             /* Enregistrement de la map en session */
 
-            session.setAttribute(SESSION_PARTICIPANTS, participants);
+            session.setAttribute(SESSION_BLOCS, blocs);
 		    
 			this.getServletContext().getRequestDispatcher(VUE_SUCCESS).forward(request, response);
 		} else {

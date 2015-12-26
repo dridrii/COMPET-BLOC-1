@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Nouveau Participant</title>
+<title>Nouveau Bloc</title>
 <link type="text/css"
 	href=" <c:url value="bootstrap/dist/css/bootstrap.css"/>" />
 
@@ -17,11 +17,11 @@
 	<c:import url="/inc/Header-juge.jsp" />
 
 	<div class="container">
-		<form method="post" action="<c:url value="/JUGE/NouveauParticipant"/>">
-			<legend>Inscription d'un nouveau participant</legend>
+		<form method="post" action="<c:url value="/JUGE/NouveauBloc"/>">
+			<legend>Enregistrement d'un nouveau Bloc</legend>
 			<fieldset>
 
-				<c:import url="/inc/ParticipantFormInc.jsp" />
+				<c:import url="/inc/BlocFormInc.jsp" />
 			</fieldset>
 			<br />
 

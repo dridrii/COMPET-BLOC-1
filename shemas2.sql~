@@ -22,16 +22,16 @@ PACK_KEYS = DEFAULT;
 
 
 -- -----------------------------------------------------
--- Table `compet_bloc`.`Participant`
+-- Table `compet_bloc`.`participant`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `compet_bloc`.`Participant` (
+CREATE TABLE IF NOT EXISTS `compet_bloc`.`participant` (
   `idParticipant` INT NOT NULL AUTO_INCREMENT,
   `dossard` VARCHAR(45) NOT NULL,
   `nom` VARCHAR(45) NOT NULL,
   `prenom` VARCHAR(45) NOT NULL,
   `age` VARCHAR(45) NOT NULL,
   `sex` VARCHAR(45) NOT NULL,
-  `categorie` VARCHAR(45) NOT NULL,
+  `categorieparti` VARCHAR(45) NOT NULL,
   `resultat` VARCHAR(45) NULL,
   UNIQUE INDEX `dossard_UNIQUE` (`dossard` ASC),
   PRIMARY KEY (`idParticipant`),

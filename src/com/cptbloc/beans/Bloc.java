@@ -1,25 +1,25 @@
 package com.cptbloc.beans;
 
 public class Bloc {
-    private String idBloc;
+    private Long IdBloc;
     private String NumBloc;
-    private String CouleurDif;
+    private String CouleurDiff;
     private String CouleurVoie;
     private String Ouvreur;
-    private String NbReussi;
-    private String ValeurInit;
-    private String ValeurFinal;
+    private int NbReussi;
+    private int ValeurInit;
+    private int ValeurFinal;
 
-    public String getIdBloc() {
-        return this.idBloc;
+    public Long getIdBloc() {
+        return this.IdBloc;
     }
 
     public String getNumBloc() {
         return this.NumBloc;
     }
 
-    public String getCouleurDif() {
-        return this.CouleurDif;
+    public String getCouleurDiff() {
+        return this.CouleurDiff;
     }
 
     public String getCouleurVoie() {
@@ -30,28 +30,28 @@ public class Bloc {
         return this.Ouvreur;
     }
     
-    public String getNbReussi() {
+    public int getNbReussi() {
         return this.NbReussi;
     }
     
-    public String getValeurInit() {
+    public int getValeurInit() {
         return this.ValeurInit;
     }
     
-    public String getValeurFinal() {
+    public int getValeurFinal() {
         return this.ValeurFinal;
     }
 
-    public void setIdBloc( String idBloc ) {
-        this.idBloc = idBloc;
+    public void setIdBloc( Long IdBloc ) {
+        this.IdBloc = IdBloc;
     }
 
     public void setNumBloc( String NumBloc) {
         this.NumBloc = NumBloc;
     }
 
-    public void setCouleurDif( String CouleurDif) {
-        this.CouleurDif = CouleurDif;
+    public void setCouleurDiff( String CouleurDiff) {
+        this.CouleurDiff = CouleurDiff;
     }
 
     public void setCouleurVoie( String CouleurVoie) {
@@ -62,15 +62,15 @@ public class Bloc {
         this.Ouvreur = Ouvreur;
     }
     
-    public void setNbReussi( String NbReussi) {
+    public void setNbReussi( int NbReussi) {
         this.NbReussi = NbReussi;
     }
     
-    public void setValeurInit( String ValeurInit) {
+    public void setValeurInit( int ValeurInit) {
         this.ValeurInit = ValeurInit;
     }
     
-    public void setValeurFinal( String ValeurFinal) {
+    public void setValeurFinal( int ValeurFinal) {
         this.ValeurFinal = ValeurFinal;
     }
 }

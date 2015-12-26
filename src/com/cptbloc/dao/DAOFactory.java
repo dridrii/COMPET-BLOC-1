@@ -108,4 +108,8 @@ public class DAOFactory {
         return new CategorieDAOImpl( this );
 
     }
+    public BlocDAO getBlocDAO() {
+        return new BlocDAOImpl( this );
+
+    }
 }

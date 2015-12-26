@@ -19,20 +19,27 @@ import com.cptbloc.dao.DAOFactory;
 import com.cptbloc.dao.JugeDAO;
 import com.cptbloc.beans.Participant;
 import com.cptbloc.dao.ParticipantDAO;
+import com.cptbloc.beans.Bloc;
+import com.cptbloc.dao.BlocDAO;
 
 public class PrechargementFilter implements Filter {
     public static final String CONF_DAO_FACTORY         = "daofactory";
     public static final String ATT_SESSION_JUGES        = "juges";
     public static final String ATT_SESSION_PARTICIPANTS = "participants";
+    public static final String ATT_SESSION_BLOCS        = "blocs";
 
     private JugeDAO            jugeDAO;
     private ParticipantDAO     participantDAO;
+    private BlocDAO            blocDAO;
 
     public void init( FilterConfig config ) throws ServletException {
         /* Récupération d'une instance de nos DAO Client et Commande */
         this.jugeDAO = ( (DAOFactory) config.getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getJugeDAO();
+
+        this.participantDAO = ( (DAOFactory) config.getServletContext().getAttribute( CONF_DAO_FACTORY ) )
+                .getParticipantDAO();
         
-        this.participantDAO = ((DAOFactory) config.getServletContext().getAttribute(CONF_DAO_FACTORY)).getParticipantDAO();
+        this.blocDAO = ( (DAOFactory) config.getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getBlocDAO();
 
     }
 
@@ -49,8 +56,7 @@ public class PrechargementFilter implements Filter {
          * connecte pour la première fois et nous devons précharger en session
          * les infos contenues dans la BDD.
          */
-        
-        
+
         if ( session.getAttribute( ATT_SESSION_JUGES ) == null ) {
             /*
              * Récupération de la liste des clients existants, et enregistrement
@@ -63,20 +69,35 @@ public class PrechargementFilter implements Filter {
             }
             session.setAttribute( ATT_SESSION_JUGES, mapJuges );
         }
-        
-        
+
         if ( session.getAttribute( ATT_SESSION_PARTICIPANTS ) == null ) {
-            /*Récupération de la liste des clients existants, et enregistrementen session */
-  
+            /*
+             * Récupération de la liste des clients existants, et
+             * enregistrement en session
+             */
+
             List<Participant> listeParticipants = participantDAO.lister();
             Map<Long, Participant> mapParticipants = new HashMap<Long, Participant>();
             for ( Participant participant : listeParticipants ) {
                 mapParticipants.put( participant.getidParticipant(), participant );
             }
-            session.setAttribute( ATT_SESSION_PARTICIPANTS, mapParticipants);
+            session.setAttribute( ATT_SESSION_PARTICIPANTS, mapParticipants );
         }
-        
-        
+
+        if ( session.getAttribute( ATT_SESSION_BLOCS ) == null ) {
+            /*
+             * Récupération de la liste des blocs existants, et
+             * enregistrement en session
+             */
+
+            List<Bloc> listeBlocs = blocDAO.lister();
+            Map<Long, Bloc> mapBlocs = new HashMap<Long, Bloc>();
+            for ( Bloc bloc: listeBlocs) {
+                mapBlocs.put( bloc.getIdBloc(), bloc);
+            }
+            session.setAttribute( ATT_SESSION_BLOCS, mapBlocs);
+        }
+
         chain.doFilter( request, res );
     }
 

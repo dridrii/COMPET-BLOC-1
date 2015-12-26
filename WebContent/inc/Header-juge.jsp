@@ -26,7 +26,8 @@
 						<ul class="dropdown-menu">
 							<li><a href="/COMPET-BLOC-1/JUGE/NouveauParticipant">Nouveau
 									Participant</a></li>
-							<li><a href="/COMPET-BLOC-1/JUGE/Liste-Participant">Liste Participant</a></li>
+							<li><a href="/COMPET-BLOC-1/JUGE/Liste-Participant">Liste
+									Participant</a></li>
 							<li><a href="/COMPET-BLOC-1/JUGE/Liste-Juge">Liste Juge</a></li>
 						</ul>
 					</li>
@@ -36,7 +37,7 @@
 							<b class="caret"></b>
 					</a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Nouveau Blocs</a></li>
+							<li><a href="/COMPET-BLOC-1/JUGE/NouveauBloc">Nouveau Blocs</a></li>
 							<li><a href="#">Résultat Blocs</a></li>
 						</ul>
 					</li>

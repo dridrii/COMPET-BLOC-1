@@ -11,9 +11,9 @@
 <body>
 	<c:import url="/inc/Header-juge.jsp" />
 	<div class="container">
-	
-	<legend class="legend" id="l01" >LISTE DES JUGES</legend>
-	
+
+		<legend class="legend" id="l01">LISTE DES JUGES</legend>
+
 		<c:choose>
 			<%-- Si aucun client n'existe en session, affichage d'un message par défaut. --%>
 			<c:when test="${ empty sessionScope.juges }">

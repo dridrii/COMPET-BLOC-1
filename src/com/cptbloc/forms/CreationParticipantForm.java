@@ -46,10 +46,9 @@ public final class CreationParticipantForm {
 		String str = agetx;
 		int age = Integer.parseInt(str);
 
+		int idDefCategorie = 1;
+		
 		Categorie categorie = new Categorie();
-
-		int idDefCategorie = Integer.parseInt("1");
-
 		categorie = categorieDAO.trouverAgeCategorie(idDefCategorie);
 
 		Participant participant = new Participant();
