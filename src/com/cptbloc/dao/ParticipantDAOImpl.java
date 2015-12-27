@@ -14,10 +14,10 @@ import com.cptbloc.beans.Participant;
 
 public class ParticipantDAOImpl implements ParticipantDAO {
 
-    private static final String SQL_SELECT            = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorieparti, resultat FROM participant ORDER BY idParticipant";
-    private static final String SQL_SELECT_PAR_DOSSARD = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorieparti, resultat FROM participant WHERE dossard = ?";
-    private static final String SQL_INSERT            = "INSERT INTO participant (dossard, nom, prenom, age, sex, categorieparti) VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String SQL_DELETE_PAR_ID     = "DELETE FROM participant WHERE id =?";
+    private static final String SQL_SELECT             = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorieparti, resultat FROM Participant ORDER BY idParticipant";
+    private static final String SQL_SELECT_PAR_DOSSARD = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorieparti, resultat FROM Participant WHERE dossard = ?";
+    private static final String SQL_INSERT             = "INSERT INTO Participant (dossard, nom, prenom, age, sex, categorieparti) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String SQL_DELETE_PAR_ID      = "DELETE FROM Participant WHERE id =?";
 
     private DAOFactory          daoFactory;
 
@@ -54,7 +54,8 @@ public class ParticipantDAOImpl implements ParticipantDAO {
             if ( valeursAutoGenerees.next() ) {
                 participant.setidParticipant( valeursAutoGenerees.getLong( 1 ) );
             } else {
-                throw new DAOException( "Échec de la création de l'utilisateur en base, aucun ID auto-généré retourné." );
+                throw new DAOException(
+                        "Échec de la création de l'utilisateur en base, aucun ID auto-généré retourné." );
             }
         } catch ( SQLException e ) {
             throw new DAOException( e );
@@ -93,7 +94,8 @@ public class ParticipantDAOImpl implements ParticipantDAO {
 
         try {
             connexion = daoFactory.getConnection();
-            preparedStatement = initialisationRequetePreparee( connexion, SQL_DELETE_PAR_ID, true, participant.getidParticipant() );
+            preparedStatement = initialisationRequetePreparee( connexion, SQL_DELETE_PAR_ID, true,
+                    participant.getidParticipant() );
             int statut = preparedStatement.executeUpdate();
             if ( statut == 0 ) {
                 throw new DAOException( "Échec de la suppression du client, aucune ligne supprimée de la table." );

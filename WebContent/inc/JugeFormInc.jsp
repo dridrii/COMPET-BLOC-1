@@ -1,6 +1,8 @@
 <%@ page pageEncoding="UTF-8"%>
+
 <link type="text/css" rel="stylsheet"
 	href=" <c:url value="inc/css/tuto.css"/>" />
+	
 <label for="pseudoJuge">Pseudo<span class="requis">*</span></label>
 <input type="text" id="pseudoJuge" name="pseudoJuge"
 	value="<c:out value="${juge.pseudo}"/>" size="30" maxlength="30" />

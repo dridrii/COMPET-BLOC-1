@@ -2,7 +2,7 @@ package com.cptbloc.beans;
 
 public class Participant {
     private Long   idParticipant;
-    private String dossard;
+    private String Dossard;
     private String nom;
     private String prenom;
     private int    age;
@@ -15,7 +15,7 @@ public class Participant {
     }
 
     public String getDossard() {
-        return this.dossard;
+        return this.Dossard;
     }
 
     public String getNom() {
@@ -46,8 +46,8 @@ public class Participant {
         this.idParticipant = idParticipant;
     }
 
-    public void setDossard( String dossard ) {
-        this.dossard = dossard;
+    public void setDossard( String Dossard ) {
+        this.Dossard = Dossard;
     }
 
     public void setNom( String nom ) {

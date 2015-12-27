@@ -17,8 +17,8 @@ import com.cptbloc.dao.DAOFactory;
 import com.cptbloc.dao.BlocDAO;
 import com.cptbloc.forms.CreationBlocForm;
 
-@SuppressWarnings("serial")
-@WebServlet("/JUGE/NouveauBloc")
+@SuppressWarnings( "serial" )
+@WebServlet("/JUGE/Nouveaubloc")
 public class NouveauBloc extends HttpServlet {
 	public static final String CONF_DAO_FACTORY = "daofactory";
 

@@ -2,12 +2,11 @@ package com.cptbloc.beans;
 
 public class Juge {
 
-
-    private Long              idJuge;
-    private String            pseudo;
-    private String            nom;
-    private String            prenom;
-    private String            mdp;
+    private Long   idJuge;
+    private String pseudo;
+    private String nom;
+    private String prenom;
+    private String mdp;
 
     public Long getidJuge() {
         return this.idJuge;

@@ -7,7 +7,7 @@ import com.cptbloc.beans.Bloc;
 public interface BlocDAO {
     void creer( Bloc bloc ) throws DAOException;
 
-    Bloc trouver( String idBloc ) throws DAOException;
+    Bloc trouver( String IdBloc ) throws DAOException;
     
     Bloc trouverNumBloc( String NumBloc ) throws DAOException;
 

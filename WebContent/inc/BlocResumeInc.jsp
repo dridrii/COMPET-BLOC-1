@@ -4,28 +4,25 @@
 	<div id="corps">
 		<p class="info">${ form.resultat }</p>
 		<p>
-			Dossard :
-			<c:out value="${ participant.dossard }" />
+			Numéro du Bloc :
+			<c:out value="${ bloc.NumBloc }" />
 		</p>
 		<p>
-			Nom :
-			<c:out value="${ participant.nom }" />
+			Couleur de la difficulté :
+			<c:out value="${ bloc.CouleurDiff }" />
 		</p>
 		<p>
-			Prénom :
-			<c:out value="${ participant.prenom }" />
+			Couleur de la voie :
+			<c:out value="${ bloc.CouleurVoie }" />
 		</p>
 		<p>
-			Age :
-			<c:out value="${ participant.age }" />
+			Ouvreur :
+			<c:out value="${ bloc.Ouvreur }" />
 		</p>
 		<p>
-			Sex :
-			<c:out value="${ participant.sex }" />
+			Valeur Initiale :
+			<c:out value="${ bloc.ValeurInit }" />
 		</p>
-		<p>
-			Catégorie :
-			<c:out value="${ participant.categorieparti }" />
-		</p>
+		
 	</div>
 </form>

@@ -14,11 +14,10 @@ import com.cptbloc.beans.Bloc;
 
 public class BlocDAOImpl implements BlocDAO {
 
-    private static final String SQL_SELECT         = "SELECT IdBloc, NumBloc, CouleurDiff, CouleurVoie, Ouveur, NbReussi, ValeurInit, ValeurFinal FROM bloc ORDER BY IdBloc";
-    private static final String SQL_SELECT_NUMBLOC = "SELECT IdBloc, NumBloc, CouleurDiff, CouleurVoie, Ouveur, NbReussi, ValeurInit, ValeurFinal FROM bloc ORDER BY NumBloc";
-
-    private static final String SQL_INSERT         = "INSERT INTO bloc (NumBloc, CouleurDiff, CouleurVoie, Ouvreur, ValeurInit) VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String SQL_DELETE_PAR_ID  = "DELETE FROM bloc WHERE id =?";
+    private static final String SQL_SELECT         = "SELECT IdBloc, NumBloc, CouleurDiff, CouleurVoie, Ouvreur, NbReussi, ValeurInit, ValeurFinal FROM Bloc ORDER BY IdBloc";
+    private static final String SQL_SELECT_NUMBLOC = "SELECT IdBloc, NumBloc, CouleurDiff, CouleurVoie, Ouvreur, NbReussi, ValeurInit, ValeurFinal FROM Bloc WHERE NumBloc = ? ";
+    private static final String SQL_INSERT         = "INSERT INTO Bloc (NumBloc, CouleurDiff, CouleurVoie, Ouvreur, ValeurInit) VALUES (?, ?, ?, ?, ?)";
+    private static final String SQL_DELETE_PAR_ID  = "DELETE FROM Bloc WHERE id =?";
 
     private DAOFactory          daoFactory;
 
@@ -27,8 +26,8 @@ public class BlocDAOImpl implements BlocDAO {
     }
 
     @Override
-    public Bloc trouver( String idBloc ) throws DAOException {
-        return trouver( SQL_SELECT, idBloc );
+    public Bloc trouver( String IdBloc ) throws DAOException {
+        return trouver( SQL_SELECT, IdBloc );
     }
     
     @Override
@@ -183,7 +182,7 @@ public class BlocDAOImpl implements BlocDAO {
         Bloc bloc = new Bloc();
 
         bloc.setIdBloc( resultSet.getLong( "IdBloc" ) );
-        bloc.setNumBloc( resultSet.getInt( "NumBloc" ) );
+        bloc.setNumBloc( resultSet.getString( "NumBloc" ) );
         bloc.setCouleurDiff( resultSet.getString( "CouleurDiff" ) );
         bloc.setCouleurVoie( resultSet.getString( "CouleurVoie" ) );
         bloc.setOuvreur( resultSet.getString( "Ouvreur" ) );

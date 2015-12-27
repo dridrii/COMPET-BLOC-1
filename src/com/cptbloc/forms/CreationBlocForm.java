@@ -79,11 +79,11 @@ public final class CreationBlocForm {
 
 	private void validationNumBloc(String NumBloc) throws FormValidationException {
 		if (NumBloc != null) {
-			if (blocDAO.trouverNumBloc(NumBloc) != null);{
-				throw new FormValidationException("Le nom d'un bloc doit contenir au moins 3 caractères.");
+			if (blocDAO.trouverNumBloc(NumBloc) != null) {
+				throw new FormValidationException("Ce Numéro de bloc est déjà attribué.");
 			}
 		} else {
-			throw new FormValidationException("Merci d'entrer un nom.");
+			throw new FormValidationException("Merci de chercher le bloc le plus élevé.");
 		}
 	}
 
