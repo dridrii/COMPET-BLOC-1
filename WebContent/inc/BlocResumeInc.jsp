@@ -23,6 +23,6 @@
 			Valeur Initiale :
 			<c:out value="${ bloc.ValeurInit }" />
 		</p>
-		
+
 	</div>
 </form>

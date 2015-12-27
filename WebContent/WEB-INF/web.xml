@@ -60,23 +60,8 @@
 		</jsp-property-group>
 	</jsp-config>
 	
-    <servlet>
-
-        <servlet-name>NouveauBloc</servlet-name>
-
-        <servlet-class>com.cptbloc.servlet.NouveauBloc</servlet-class>
-
-    </servlet>
 
 
-    <servlet-mapping>
 
-        <servlet-name>NouveauBloc</servlet-name>
-
-        <url-pattern>/JUGE/NouveauBloc</url-pattern>
-
-    </servlet-mapping>
-
- 
 
 </web-app>
