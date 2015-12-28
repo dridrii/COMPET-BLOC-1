@@ -11,7 +11,7 @@ import com.cptbloc.dao.CategorieDAO;
 import com.cptbloc.dao.DAOException;
 import com.cptbloc.dao.ParticipantDAO;
 
-public final class CreationParticipantForm {
+public final class ModificationParticipantForm {
 	private static final String CHAMP_DOSSARD = "dossardParticipant";
 	private static final String CHAMP_NOM = "nomParticipant";
 	private static final String CHAMP_PRENOM = "prenomParticipant";
@@ -22,8 +22,8 @@ public final class CreationParticipantForm {
 	private Map<String, String> erreurs = new HashMap<String, String>();
 	private ParticipantDAO participantDAO;
 	private CategorieDAO categorieDAO;
-
-	public CreationParticipantForm(ParticipantDAO participantDAO, CategorieDAO categorieDAO) {
+	
+	public ModificationParticipantForm(ParticipantDAO participantDAO, CategorieDAO categorieDAO) {
 		this.participantDAO = participantDAO;
 		this.categorieDAO = categorieDAO;
 	}
@@ -36,7 +36,7 @@ public final class CreationParticipantForm {
 		return resultat;
 	}
 
-	public Participant creerParticipant(HttpServletRequest request) {
+	public Participant ModifierParticipant(HttpServletRequest request) {
 		String dossard = getValeurChamp(request, CHAMP_DOSSARD);
 		String nom = getValeurChamp(request, CHAMP_NOM);
 		String prenom = getValeurChamp(request, CHAMP_PRENOM);
@@ -48,10 +48,12 @@ public final class CreationParticipantForm {
 
 		int idDefCategorie = 1;
 		
-		Categorie categorie = new Categorie();
-		categorie = categorieDAO.trouverAgeCategorie(idDefCategorie);
 
+	    Categorie categorie = new Categorie();
+	    categorie = categorieDAO.trouverAgeCategorie(idDefCategorie);
+		
 		Participant participant = new Participant();
+		
 		try {
 			traiterDossard(dossard, participant);
 			traiterNom(nom, participant);

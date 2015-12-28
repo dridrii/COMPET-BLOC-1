@@ -38,6 +38,7 @@
 					</a>
 						<ul class="dropdown-menu">
 							<li><a href="/COMPET-BLOC-1/JUGE/NouveauBloc">Nouveau Blocs</a></li>
+							<li><a href="/COMPET-BLOC-1/JUGE/Liste-Bloc">Liste Blocs</a></li>
 							<li><a href="#">Résultat Blocs</a></li>
 						</ul>
 					</li>

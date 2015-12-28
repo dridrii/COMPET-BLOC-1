@@ -14,10 +14,10 @@ import com.cptbloc.beans.Bloc;
 
 public class BlocDAOImpl implements BlocDAO {
 
-    private static final String SQL_SELECT         = "SELECT IdBloc, NumBloc, CouleurDiff, CouleurVoie, Ouvreur, NbReussi, ValeurInit, ValeurFinal FROM Bloc ORDER BY IdBloc";
-    private static final String SQL_SELECT_NUMBLOC = "SELECT IdBloc, NumBloc, CouleurDiff, CouleurVoie, Ouvreur, NbReussi, ValeurInit, ValeurFinal FROM Bloc WHERE NumBloc = ? ";
-    private static final String SQL_INSERT         = "INSERT INTO Bloc (NumBloc, CouleurDiff, CouleurVoie, Ouvreur, ValeurInit) VALUES (?, ?, ?, ?, ?)";
-    private static final String SQL_DELETE_PAR_ID  = "DELETE FROM Bloc WHERE id =?";
+    private static final String SQL_SELECT         = "SELECT idBloc, numBloc, couleurDiff, couleurVoie, ouvreur, nbReussi, valeurInit, valeurFinal FROM Bloc ORDER BY idBloc";
+    private static final String SQL_SELECT_NUMBLOC = "SELECT idBloc, numBloc, couleurDiff, couleurVoie, ouvreur, nbReussi, valeurInit, valeurFinal FROM Bloc WHERE numBloc = ? ";
+    private static final String SQL_INSERT         = "INSERT INTO Bloc (numBloc, couleurDiff, couleurVoie, ouvreur, valeurInit) VALUES (?, ?, ?, ?, ?)";
+    private static final String SQL_DELETE_PAR_ID  = "DELETE FROM Bloc WHERE idBloc =?";
 
     private DAOFactory          daoFactory;
 
@@ -31,8 +31,8 @@ public class BlocDAOImpl implements BlocDAO {
     }
     
     @Override
-    public Bloc trouverNumBloc( String NumBloc ) throws DAOException {
-        return trouverNumBloc( SQL_SELECT_NUMBLOC, NumBloc );
+    public Bloc trouverNumBloc( String numBloc ) throws DAOException {
+        return trouverNumBloc( SQL_SELECT_NUMBLOC, numBloc );
     }
 
     /* Implémentation de la méthode définie dans l'interface participantDAO */
@@ -181,14 +181,14 @@ public class BlocDAOImpl implements BlocDAO {
     private static Bloc map( ResultSet resultSet ) throws SQLException {
         Bloc bloc = new Bloc();
 
-        bloc.setIdBloc( resultSet.getLong( "IdBloc" ) );
-        bloc.setNumBloc( resultSet.getString( "NumBloc" ) );
-        bloc.setCouleurDiff( resultSet.getString( "CouleurDiff" ) );
-        bloc.setCouleurVoie( resultSet.getString( "CouleurVoie" ) );
-        bloc.setOuvreur( resultSet.getString( "Ouvreur" ) );
-        bloc.setNbReussi( resultSet.getInt( "NbReussi" ) );
-        bloc.setValeurInit( resultSet.getInt( "ValeurInit" ) );
-        bloc.setValeurFinal( resultSet.getInt( "ValeurFinal" ) );
+        bloc.setIdBloc( resultSet.getLong( "idBloc" ) );
+        bloc.setNumBloc( resultSet.getString( "numBloc" ) );
+        bloc.setCouleurDiff( resultSet.getString( "couleurDiff" ) );
+        bloc.setCouleurVoie( resultSet.getString( "couleurVoie" ) );
+        bloc.setOuvreur( resultSet.getString( "ouvreur" ) );
+        bloc.setNbReussi( resultSet.getInt( "nbReussi" ) );
+        bloc.setValeurInit( resultSet.getInt( "valeurInit" ) );
+        bloc.setValeurFinal( resultSet.getInt( "valeurFinal" ) );
 
         return bloc;
     }

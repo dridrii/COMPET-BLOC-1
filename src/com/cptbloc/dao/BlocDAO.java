@@ -9,7 +9,7 @@ public interface BlocDAO {
 
     Bloc trouver( String IdBloc ) throws DAOException;
     
-    Bloc trouverNumBloc( String NumBloc ) throws DAOException;
+    Bloc trouverNumBloc( String numBloc ) throws DAOException;
 
     List<Bloc> lister() throws DAOException;
 

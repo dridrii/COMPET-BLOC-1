@@ -2,12 +2,12 @@ package com.cptbloc.beans;
 
 public class Participant {
     private Long   idParticipant;
-    private String Dossard;
+    private String dossard;
     private String nom;
     private String prenom;
     private int    age;
     private String sex;
-    private String categorieparti;
+    private String categorieParti;
     private String resultat;
 
     public Long getidParticipant() {
@@ -15,7 +15,7 @@ public class Participant {
     }
 
     public String getDossard() {
-        return this.Dossard;
+        return this.dossard;
     }
 
     public String getNom() {
@@ -35,7 +35,7 @@ public class Participant {
     }
 
     public String getCategorieparti() {
-        return this.categorieparti;
+        return this.categorieParti;
     }
 
     public String getResultat() {
@@ -47,7 +47,7 @@ public class Participant {
     }
 
     public void setDossard( String Dossard ) {
-        this.Dossard = Dossard;
+        this.dossard = Dossard;
     }
 
     public void setNom( String nom ) {
@@ -66,8 +66,8 @@ public class Participant {
         this.sex = sex;
     }
 
-    public void setCategorieparti( String categorieparti ) {
-        this.categorieparti = categorieparti;
+    public void setCategorieParti( String categorieParti ) {
+        this.categorieParti = categorieParti;
     }
 
     public void setResultat( String resultat ) {

@@ -25,7 +25,7 @@
 			</fieldset>
 			<br />
 
-			<p class="info">${ form.resultat}</p>
+			<p class="info">${form.resultat}</p>
 			<input type="submit" value="Valider" /> <input type="reset"
 				value="Remettre à zéro" /> <br />
 		</form>

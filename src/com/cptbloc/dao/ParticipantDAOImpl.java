@@ -14,10 +14,11 @@ import com.cptbloc.beans.Participant;
 
 public class ParticipantDAOImpl implements ParticipantDAO {
 
-    private static final String SQL_SELECT             = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorieparti, resultat FROM Participant ORDER BY idParticipant";
-    private static final String SQL_SELECT_PAR_DOSSARD = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorieparti, resultat FROM Participant WHERE dossard = ?";
-    private static final String SQL_INSERT             = "INSERT INTO Participant (dossard, nom, prenom, age, sex, categorieparti) VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String SQL_DELETE_PAR_ID      = "DELETE FROM Participant WHERE id =?";
+    private static final String SQL_SELECT             = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorieParti, resultat FROM Participant ORDER BY idParticipant";
+    private static final String SQL_SELECT_PAR_DOSSARD = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorieParti, resultat FROM Participant WHERE dossard = ?";
+    private static final String SQL_INSERT             = "INSERT INTO Participant (dossard, nom, prenom, age, sex, categorieParti) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE             = "UPDATE Participant SET dossard = '?', nom = '?', prenom = '?', age = '?', sex = '?', categorieParti = '?' WHERE idParticipant = '?'";
+    private static final String SQL_DELETE_PAR_ID      = "DELETE FROM Participant WHERE idParticipant =?";
 
     private DAOFactory          daoFactory;
 
@@ -26,8 +27,18 @@ public class ParticipantDAOImpl implements ParticipantDAO {
     }
 
     @Override
-    public Participant trouver( String dossard ) throws DAOException {
-        return trouver( SQL_SELECT_PAR_DOSSARD, dossard );
+    public Participant trouver( String idParticipant ) throws DAOException {
+        return trouver( SQL_SELECT, idParticipant );
+    }
+
+    @Override
+    public Participant trouverDossard( String dossard ) throws DAOException {
+        return trouverDossard( SQL_SELECT_PAR_DOSSARD, dossard );
+    }
+
+    @Override
+    public Participant MAJ( String idParticipant ) throws DAOException {
+        return trouverDossard( SQL_UPDATE, idParticipant );
     }
 
     /* Implémentation de la méthode définie dans l'interface participantDAO */
@@ -142,6 +153,34 @@ public class ParticipantDAOImpl implements ParticipantDAO {
         return participant;
     }
 
+    private Participant trouverDossard( String sql, Object... objets ) throws DAOException {
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Participant participant = null;
+
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            /*
+             * Préparation de la requête avec les objets passés en arguments
+             * (ici, uniquement une adresse email) et exécution.
+             */
+            preparedStatement = initialisationRequetePreparee( connexion, sql, false, objets );
+            resultSet = preparedStatement.executeQuery();
+            /* Parcours de la ligne de données retournée dans le ResultSet */
+            if ( resultSet.next() ) {
+                participant = map( resultSet );
+            }
+        } catch ( SQLException e ) {
+            throw new DAOException( e );
+        } finally {
+            fermeturesSilencieuses( resultSet, preparedStatement, connexion );
+        }
+
+        return participant;
+    }
+
     /*
      * Simple méthode utilitaire permettant de faire la correspondance (le
      * mapping) entre une ligne issue de la table des utilisateurs (un
@@ -157,7 +196,7 @@ public class ParticipantDAOImpl implements ParticipantDAO {
         participant.setPrenom( resultSet.getString( "prenom" ) );
         participant.setSex( resultSet.getString( "sex" ) );
         participant.setAge( resultSet.getInt( "age" ) );
-        participant.setCategorieparti( resultSet.getString( "categorieparti" ) );
+        participant.setCategorieParti( resultSet.getString( "categorieparti" ) );
         return participant;
     }
 
