@@ -121,7 +121,7 @@ public final class CreationParticipantForm {
 
 	private void validationDossard(String dossard) throws FormValidationException {
 		if (dossard != null) {
-			if (participantDAO.trouver(dossard) != null) {
+			if (participantDAO.trouverDossard(dossard) != null) {
 				throw new FormValidationException("Ce dossard est déjà attribué");
 
 			}

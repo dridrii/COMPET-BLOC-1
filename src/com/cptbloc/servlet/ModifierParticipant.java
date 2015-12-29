@@ -16,8 +16,9 @@ import com.cptbloc.dao.DAOException;
 import com.cptbloc.dao.DAOFactory;
 import com.cptbloc.dao.ParticipantDAO;
 import com.cptbloc.forms.ModificationParticipantForm;
+import com.cptbloc.dao.CategorieDAO;
 
-@SuppressWarnings( "serial" )
+@SuppressWarnings( { "serial", "unused"} )
 @WebServlet( "/JUGE/ModifierParticipant" )
 public class ModifierParticipant extends HttpServlet {
     public static final String CONF_DAO_FACTORY     = "daofactory";
@@ -26,11 +27,12 @@ public class ModifierParticipant extends HttpServlet {
     public static final String ATT_FORM             = "form";
 
     public static final String VUE_SUCCESS          = "/JUGE/Resume-Nv-Bloc.jsp";
-    public static final String VUE_FORM             = "/JUGE/MDF-participant.jsp";
+    public static final String VUE_FORM             = "/JUGE/MDF-Participant.jsp";
 
     public static final String PARAM_ID_PARTICIPANT = "idParticipant";
 
     private ParticipantDAO     participantDAO;
+    private CategorieDAO       categorieDAO;
 
     public void init() throws ServletException {
         /* Récupérations d'une instance de notre dao bloc */
@@ -43,27 +45,23 @@ public class ModifierParticipant extends HttpServlet {
 
         String idParticipant = getValeurParametre( request, PARAM_ID_PARTICIPANT );
 
-        Long id = Long.parseLong( idParticipant );
+        /* Long idParticipant = Long.parseLong( idParticipantTX ); */
 
-        if ( id != null ) {
-            try {
-                participantDAO.trouverDossard( idParticipant );
+        
+            Participant participant = new Participant();
+            participant = participantDAO.trouverIdParticipant( idParticipant );
 
-            } catch ( DAOException e ) {
-                e.printStackTrace();
-            }
-
-        }
-
+        
+            request.setAttribute("participant", participant);
         this.getServletContext().getRequestDispatcher( VUE_FORM ).forward( request, response );
     }
 
     public void doPost( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
-        CreationBlocForm form = new CreationBlocForm( participantDAO );
+        ModificationParticipantForm form = new ModificationParticipantForm( participantDAO, categorieDAO );
 
-        Participant participant = form.creerBloc( request );
+        Participant participant = form.ModifierParticipant( request );
 
         request.setAttribute( ATT_BLOC, participant );
         request.setAttribute( ATT_FORM, form );

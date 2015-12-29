@@ -16,6 +16,7 @@ public class ParticipantDAOImpl implements ParticipantDAO {
 
     private static final String SQL_SELECT             = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorieParti, resultat FROM Participant ORDER BY idParticipant";
     private static final String SQL_SELECT_PAR_DOSSARD = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorieParti, resultat FROM Participant WHERE dossard = ?";
+    private static final String SQL_SELECT_PAR_ID      = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorieParti, resultat FROM Participant WHERE idParticipant = ?";
     private static final String SQL_INSERT             = "INSERT INTO Participant (dossard, nom, prenom, age, sex, categorieParti) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE             = "UPDATE Participant SET dossard = '?', nom = '?', prenom = '?', age = '?', sex = '?', categorieParti = '?' WHERE idParticipant = '?'";
     private static final String SQL_DELETE_PAR_ID      = "DELETE FROM Participant WHERE idParticipant =?";
@@ -30,15 +31,15 @@ public class ParticipantDAOImpl implements ParticipantDAO {
     public Participant trouver( String idParticipant ) throws DAOException {
         return trouver( SQL_SELECT, idParticipant );
     }
-
+    
     @Override
-    public Participant trouverDossard( String dossard ) throws DAOException {
-        return trouverDossard( SQL_SELECT_PAR_DOSSARD, dossard );
+    public Participant trouverIdParticipant( String idParticipant ) throws DAOException {
+        return trouver( SQL_SELECT_PAR_ID, idParticipant );
     }
 
     @Override
-    public Participant MAJ( String idParticipant ) throws DAOException {
-        return trouverDossard( SQL_UPDATE, idParticipant );
+    public Participant trouverDossard( String dossard ) throws DAOException {
+        return trouver( SQL_SELECT_PAR_DOSSARD, dossard );
     }
 
     /* Implémentation de la méthode définie dans l'interface participantDAO */
@@ -153,32 +154,43 @@ public class ParticipantDAOImpl implements ParticipantDAO {
         return participant;
     }
 
-    private Participant trouverDossard( String sql, Object... objets ) throws DAOException {
+
+
+    /* Implémentation de la méthode définie dans l'interface participantDAO */
+    @SuppressWarnings( "null" )
+    @Override
+    public void MAJParticipant( String idParticipant ) throws DAOException {
         Connection connexion = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+        ResultSet valeursAutoGenerees = null;
         Participant participant = null;
 
         try {
-            /* Récupération d'une connexion depuis la Factory */
             connexion = daoFactory.getConnection();
-            /*
-             * Préparation de la requête avec les objets passés en arguments
-             * (ici, uniquement une adresse email) et exécution.
-             */
-            preparedStatement = initialisationRequetePreparee( connexion, sql, false, objets );
-            resultSet = preparedStatement.executeQuery();
-            /* Parcours de la ligne de données retournée dans le ResultSet */
-            if ( resultSet.next() ) {
-                participant = map( resultSet );
+            preparedStatement = initialisationRequetePreparee( connexion, SQL_UPDATE, true,
+                    participant.getDossard(),
+                    participant.getNom(),
+                    participant.getPrenom(),
+                    participant.getAge(),
+                    participant.getSex(),
+                    participant.getCategorieparti() );
+            int statut = preparedStatement.executeUpdate();
+            if ( statut == 0 ) {
+                throw new DAOException( "Échec de la création de l'utilisateur, aucune ligne ajoutée dans la table." );
+            }
+            valeursAutoGenerees = preparedStatement.getGeneratedKeys();
+            if ( valeursAutoGenerees.next() ) {
+                participant.setidParticipant( valeursAutoGenerees.getLong( 1 ) );
+            } else {
+                throw new DAOException(
+                        "Échec de la création de l'utilisateur en base, aucun ID auto-généré retourné." );
             }
         } catch ( SQLException e ) {
             throw new DAOException( e );
         } finally {
-            fermeturesSilencieuses( resultSet, preparedStatement, connexion );
+            fermeturesSilencieuses( valeursAutoGenerees, preparedStatement, connexion );
         }
 
-        return participant;
     }
 
     /*

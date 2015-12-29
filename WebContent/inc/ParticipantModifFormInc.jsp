@@ -29,17 +29,27 @@
 <span class="erreur">${form.erreurs['ageParticipant']}</span>
 <br />
 
-<label for="sexParticipant">Sex<span class="requis">*</span></label>
-<input type="radio" id="sexParticipant" name="sexParticipant" checked
-	value="Homme" />
+<c:choose>
+
+	<c:when test="${sexParticipant = Homme}">
+
+		<label for="sexParticipant">Sex<span class="requis">*</span></label>
+		<input type="radio" id="sexParticipant" name="sexParticipant" checked
+			value="Homme" />
 Homme
-<br />
-<label for="sexParticipant"><span class="requis"></span></label>
-<input type="radio" id="sexParticipant" name="sexParticipant" 
-	value="Femme" />
+
+	</c:when>
+
+	<c:otherwise>
+
+		<label for="sexParticipant"><span class="requis"></span></label>
+		<input type="radio" id="sexParticipant" name="sexParticipant" checked
+			value="Femme" />
 Femme
 <br />
+	</c:otherwise>
 
+</c:choose>
 
 <span class="erreur">${form.erreurs['numParticipant']}</span>
 <br />
