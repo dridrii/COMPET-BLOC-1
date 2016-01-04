@@ -52,9 +52,9 @@ public final class CreationBlocForm {
 
             if ( erreurs.isEmpty() ) {
                 blocDAO.creer( bloc );
-                resultat = "Succès de l'inscription.";
+                resultat = "Succès de l'ajout.";
             } else {
-                resultat = "Echec de l'inscription.";
+                resultat = "Echec de l'ajout.";
             }
 
         } catch ( DAOException e ) {

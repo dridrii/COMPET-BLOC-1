@@ -11,11 +11,11 @@ public interface ParticipantDAO {
 
     Participant trouverDossard( String dossard ) throws DAOException;
     
-    Participant trouverIdParticipant( String idParticipant) throws DAOException;
+    Participant trouverIdParticipant( Long idParticipant) throws DAOException;
 
     List<Participant> lister() throws DAOException;
 
-    void MAJParticipant(String idParticipant ) throws DAOException;
+    void MAJParticipant(Long idParticipant ) throws DAOException;
 
     void supprimer( Participant participant ) throws DAOException;
 

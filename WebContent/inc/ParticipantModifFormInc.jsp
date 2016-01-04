@@ -3,6 +3,9 @@
 <link type="text/css" rel="stylsheet"
 	href=" <c:url value="inc/css/tuto.css"/>" />
 
+<input type="hidden" id="idParticipant" name="idParticipant"
+	value="<c:out value="${participant.idParticipant}"/>" size="30"
+	maxlength="30" />
 
 <label for="dossardParticipant">Dossard<span class="requis">*</span></label>
 <input type="number" id="dossardParticipant" name="dossardParticipant"
@@ -29,23 +32,32 @@
 <span class="erreur">${form.erreurs['ageParticipant']}</span>
 <br />
 
+
+
 <c:choose>
 
-	<c:when test="${sexParticipant = Homme}">
+	<c:when test="${(participant.sex).equalsIgnoreCase('Homme')}">
 
 		<label for="sexParticipant">Sex<span class="requis">*</span></label>
 		<input type="radio" id="sexParticipant" name="sexParticipant" checked
-			value="Homme" />
-Homme
+			value="Homme" />Homme
+		<br />
+		<label for="sexParticipant"><span class="requis"></span></label>
+		<input type="radio" id="sexParticipant" name="sexParticipant"
+			value="Femme" />Femme
+
 
 	</c:when>
 
 	<c:otherwise>
-
+		<label for="sexParticipant">Sex<span class="requis">*</span></label>
+		<input type="radio" id="sexParticipant" name="sexParticipant"
+			value="Homme" />Homme
+		<br />
 		<label for="sexParticipant"><span class="requis"></span></label>
 		<input type="radio" id="sexParticipant" name="sexParticipant" checked
-			value="Femme" />
-Femme
+			value="Femme" />Femme
+
 <br />
 	</c:otherwise>
 

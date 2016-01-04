@@ -12,185 +12,197 @@ import com.cptbloc.dao.DAOException;
 import com.cptbloc.dao.ParticipantDAO;
 
 public final class ModificationParticipantForm {
-	private static final String CHAMP_DOSSARD = "dossardParticipant";
-	private static final String CHAMP_NOM = "nomParticipant";
-	private static final String CHAMP_PRENOM = "prenomParticipant";
-	private static final String CHAMP_AGE = "ageParticipant";
-	private static final String CHAMP_SEX = "sexParticipant";
+    private static final String CHAMP_IDPARTICIPANT = "idParticipant";
+    private static final String CHAMP_DOSSARD       = "dossardParticipant";
+    private static final String CHAMP_NOM           = "nomParticipant";
+    private static final String CHAMP_PRENOM        = "prenomParticipant";
+    private static final String CHAMP_AGE           = "ageParticipant";
+    private static final String CHAMP_SEX           = "sexParticipant";
 
-	private String resultat;
-	private Map<String, String> erreurs = new HashMap<String, String>();
-	private ParticipantDAO participantDAO;
-	private CategorieDAO categorieDAO;
-	
-	public ModificationParticipantForm(ParticipantDAO participantDAO, CategorieDAO categorieDAO) {
-		this.participantDAO = participantDAO;
-		this.categorieDAO = categorieDAO;
-	}
+    private String              resultat;
+    private Map<String, String> erreurs             = new HashMap<String, String>();
+    private ParticipantDAO      participantDAO;
+    private CategorieDAO        categorieDAO;
 
-	public Map<String, String> getErreurs() {
-		return erreurs;
-	}
+    public ModificationParticipantForm( ParticipantDAO participantDAO, CategorieDAO categorieDAO ) {
+        this.participantDAO = participantDAO;
+        this.categorieDAO = categorieDAO;
+    }
 
-	public String getResultat() {
-		return resultat;
-	}
+    public Map<String, String> getErreurs() {
+        return erreurs;
+    }
 
-	public Participant ModifierParticipant(HttpServletRequest request) {
-		String dossard = getValeurChamp(request, CHAMP_DOSSARD);
-		String nom = getValeurChamp(request, CHAMP_NOM);
-		String prenom = getValeurChamp(request, CHAMP_PRENOM);
-		String agetx = getValeurChamp(request, CHAMP_AGE);
-		String sex = getValeurChamp(request, CHAMP_SEX);
+    public String getResultat() {
+        return resultat;
+    }
 
-		String str = agetx;
-		int age = Integer.parseInt(str);
+    public Participant ModifierParticipant( HttpServletRequest request ) {
+        String idParticipantTX = getValeurChamp( request, CHAMP_IDPARTICIPANT );
+        String dossard = getValeurChamp( request, CHAMP_DOSSARD );
+        String nom = getValeurChamp( request, CHAMP_NOM );
+        String prenom = getValeurChamp( request, CHAMP_PRENOM );
+        String agetx = getValeurChamp( request, CHAMP_AGE );
+        String sex = getValeurChamp( request, CHAMP_SEX );
 
-		int idDefCategorie = 1;
-		
+        String str1 = idParticipantTX;
+        Long idParticipant = Long.parseLong( str1 );
 
-	    Categorie categorie = new Categorie();
-	    categorie = categorieDAO.trouverAgeCategorie(idDefCategorie);
-		
-		Participant participant = new Participant();
-		
-		try {
-			traiterDossard(dossard, participant);
-			traiterNom(nom, participant);
-			traiterPrenom(prenom, participant);
-			traiterAge(age, participant);
-			participant.setSex(sex);
-			traiterCategorie(categorie, participant);
+        String str = agetx;
+        int age = Integer.parseInt( str );
 
-			if (erreurs.isEmpty()) {
-				participantDAO.creer(participant);
-				resultat = "Succès de l'inscription.";
-			} else {
-				resultat = "Echec de l'inscription.";
-			}
+        int idDefCategorie = 1;
 
-		} catch (DAOException e) {
-			setErreur("imprévu", "Erreur imprévue lors de la création.");
-			resultat = "Echec de l'insciption : une erreur imprévue et survenue, merci de réessayer dans quelques instants.";
-			e.printStackTrace();
-		}
-		return participant;
-	}
+        Categorie categorie = new Categorie();
+        categorie = categorieDAO.trouverAgeCategorie( idDefCategorie );
 
-	private void traiterDossard(String dossard, Participant participant) {
-		try {
-			validationDossard(dossard);
-		} catch (FormValidationException e) {
-			setErreur(CHAMP_DOSSARD, e.getMessage());
-		}
-		participant.setDossard(dossard);
-	}
+        Participant participant = new Participant();
 
-	private void traiterNom(String nom, Participant participant) {
-		try {
-			validationNom(nom);
-		} catch (FormValidationException e) {
-			setErreur(CHAMP_NOM, e.getMessage());
-		}
-		participant.setNom(nom);
-	}
+        try {
+            participant.setidParticipant( idParticipant );
+            traiterDossard( dossard, participant, idParticipant );
+            traiterNom( nom, participant );
+            traiterPrenom( prenom, participant );
+            traiterAge( age, participant );
+            participant.setSex( sex );
+            traiterCategorie( categorie, participant );
 
-	private void traiterPrenom(String prenom, Participant participant) {
-		try {
-			validationPrenom(prenom);
-		} catch (FormValidationException e) {
-			setErreur(CHAMP_PRENOM, e.getMessage());
-		}
-		participant.setPrenom(prenom);
-	}
+            if ( erreurs.isEmpty() ) {
+                participantDAO.MAJParticipant( idParticipant );
+                resultat = "Succès de l'inscription.";
+            } else {
+                resultat = "Echec de l'inscription.";
+            }
 
-	private void traiterAge(int age, Participant participant) {
-		try {
-			validationAge(age);
-		} catch (FormValidationException e) {
-			setErreur(CHAMP_AGE, e.getMessage());
-		}
-		participant.setAge(age);
-	}
+        } catch ( DAOException e ) {
+            setErreur( "imprévu", "Erreur imprévue lors de la création." );
+            resultat = "Echec de l'insciption : une erreur imprévue et survenue, merci de réessayer dans quelques instants.";
+            e.printStackTrace();
+        }
+        return participant;
+    }
 
-	private void traiterCategorie(Categorie categorie, Participant participant) {
-		try {
-			validationCategorie(categorie, participant);
-		} catch (FormValidationException e) {
-			setErreur(CHAMP_AGE, e.getMessage());
-		}
-	}
+    private void traiterDossard( String dossard, Participant participant, Long idParticipant ) {
+        try {
+            validationDossard( dossard, participant, idParticipant );
+        } catch ( FormValidationException e ) {
+            setErreur( CHAMP_DOSSARD, e.getMessage() );
+        }
+        participant.setDossard( dossard );
+    }
 
-	private void validationDossard(String dossard) throws FormValidationException {
-		if (dossard != null) {
-			if (participantDAO.trouver(dossard) != null) {
-				throw new FormValidationException("Ce dossard est déjà attribué");
+    private void traiterNom( String nom, Participant participant ) {
+        try {
+            validationNom( nom );
+        } catch ( FormValidationException e ) {
+            setErreur( CHAMP_NOM, e.getMessage() );
+        }
+        participant.setNom( nom );
+    }
 
-			}
-		} else {
-			throw new FormValidationException("Merci d'entrer un numéro de dossard");
-		}
-	}
+    private void traiterPrenom( String prenom, Participant participant ) {
+        try {
+            validationPrenom( prenom );
+        } catch ( FormValidationException e ) {
+            setErreur( CHAMP_PRENOM, e.getMessage() );
+        }
+        participant.setPrenom( prenom );
+    }
 
-	private void validationNom(String nom) throws FormValidationException {
-		if (nom != null) {
-			if (nom.length() < 3) {
-				throw new FormValidationException("Le nom d'un participant doit contenir au moins 3 caractères.");
-			}
-		} else {
-			throw new FormValidationException("Merci d'entrer un nom.");
-		}
-	}
+    private void traiterAge( int age, Participant participant ) {
+        try {
+            validationAge( age );
+        } catch ( FormValidationException e ) {
+            setErreur( CHAMP_AGE, e.getMessage() );
+        }
+        participant.setAge( age );
+    }
 
-	private void validationPrenom(String prenom) throws FormValidationException {
-		if (prenom != null && prenom.length() < 3) {
-			throw new FormValidationException("Le prénom d'un participant doit contenir au moins 3 caractères.");
-		}
-	}
+    private void traiterCategorie( Categorie categorie, Participant participant ) {
+        try {
+            validationCategorie( categorie, participant );
+        } catch ( FormValidationException e ) {
+            setErreur( CHAMP_AGE, e.getMessage() );
+        }
+ 
+    }
 
-	private void validationAge(int age) throws FormValidationException {
+    private void validationDossard( String dossard, Participant participant, Long idParticipant )
+            throws FormValidationException {
+        if ( dossard != null ) {
+            
+            Participant participant2 = new Participant();
+            participant2 = participantDAO.trouverIdParticipant( idParticipant );
 
-		if (age > 0 && age < 99) {
+            if ( participant2.getDossard() == dossard ) {
 
-		} else {
-			throw new FormValidationException("Merci d'insérer votre age !");
-		}
-	}
+                throw new FormValidationException( "Ce dossard est déjà attribué" );
 
-	private void validationCategorie(Categorie categorie, Participant participant) throws FormValidationException {
+            }
+        } else {
+            throw new FormValidationException( "Merci d'entrer un numéro de dossard" );
+        }
+    }
 
-		if (participant.getSex().equals("Homme")) {
+    private void validationNom( String nom ) throws FormValidationException {
+        if ( nom != null ) {
+            if ( nom.length() < 3 ) {
+                throw new FormValidationException( "Le nom d'un participant doit contenir au moins 3 caractères." );
+            }
+        } else {
+            throw new FormValidationException( "Merci d'entrer un nom." );
+        }
+    }
 
-			if (participant.getAge() < categorie.getageConfigHomme()) {
-				participant.setCategorieParti("JuniorHomme");
+    private void validationPrenom( String prenom ) throws FormValidationException {
+        if ( prenom != null && prenom.length() < 3 ) {
+            throw new FormValidationException( "Le prénom d'un participant doit contenir au moins 3 caractères." );
+        }
+    }
 
-			} else {
-				participant.setCategorieParti("EliteHomme");
-			}
-		}
+    private void validationAge( int age ) throws FormValidationException {
 
-		if (participant.getSex().equals("Femme")) {
+        if ( age > 0 && age < 99 ) {
 
-			if (participant.getAge() < categorie.getageConfigFemme()) {
-				participant.setCategorieParti("JuniorFemme");
+        } else {
+            throw new FormValidationException( "Merci d'insérer votre age !" );
+        }
+    }
 
-			} else {
-				participant.setCategorieParti("EliteFemme");
-			}
-		}
+    private void validationCategorie( Categorie categorie, Participant participant ) throws FormValidationException {
 
-	}
+        if ( participant.getSex().equals( "Homme" ) ) {
 
-	private void setErreur(String champ, String message) {
-		erreurs.put(champ, message);
-	}
+            if ( participant.getAge() < categorie.getageConfigHomme() ) {
+                participant.setCategorieParti( "JuniorHomme" );
 
-	private static String getValeurChamp(HttpServletRequest request, String nomChamp) {
-		String valeur = request.getParameter(nomChamp);
-		if (valeur == null || valeur.trim().length() == 0) {
-			return null;
-		} else {
-			return valeur;
-		}
-	}
+            } else {
+                participant.setCategorieParti( "EliteHomme" );
+            }
+        }
+
+        if ( participant.getSex().equals( "Femme" ) ) {
+
+            if ( participant.getAge() < categorie.getageConfigFemme() ) {
+                participant.setCategorieParti( "JuniorFemme" );
+
+            } else {
+                participant.setCategorieParti( "EliteFemme" );
+            }
+        }
+
+    }
+
+    private void setErreur( String champ, String message ) {
+        erreurs.put( champ, message );
+    }
+
+    private static String getValeurChamp( HttpServletRequest request, String nomChamp ) {
+        String valeur = request.getParameter( nomChamp );
+        if ( valeur == null || valeur.trim().length() == 0 ) {
+            return null;
+        } else {
+            return valeur;
+        }
+    }
 }

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Log-in</title>
+<title>Nouveau Bloc</title>
 <link type="text/css"
 	href=" <c:url value="boostrap/dist/css/bootstrap.css"/>" />
 
@@ -17,7 +17,7 @@
 
 	<div class="container">
 		<form method="get" action="<c:url value="/JUGE/NouveauBloc"/>">
-			<legend>Recap Nouveau Juge</legend>
+			<legend>Recap Nouveau Bloc</legend>
 			<fieldset>
 				<c:import url="/inc/BlocResumeInc.jsp" />
 				<input type="submit" value="Nouveau Bloc" />

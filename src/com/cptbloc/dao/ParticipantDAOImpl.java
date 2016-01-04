@@ -33,7 +33,7 @@ public class ParticipantDAOImpl implements ParticipantDAO {
     }
     
     @Override
-    public Participant trouverIdParticipant( String idParticipant ) throws DAOException {
+    public Participant trouverIdParticipant( Long idParticipant ) throws DAOException {
         return trouver( SQL_SELECT_PAR_ID, idParticipant );
     }
 
@@ -159,11 +159,10 @@ public class ParticipantDAOImpl implements ParticipantDAO {
     /* Implémentation de la méthode définie dans l'interface participantDAO */
     @SuppressWarnings( "null" )
     @Override
-    public void MAJParticipant( String idParticipant ) throws DAOException {
+    public void MAJParticipant( Long idParticipant ) throws DAOException {
         Connection connexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet valeursAutoGenerees = null;
-        Participant participant = null;
 
         try {
             connexion = daoFactory.getConnection();

@@ -18,7 +18,7 @@ import com.cptbloc.dao.ParticipantDAO;
 import com.cptbloc.forms.ModificationParticipantForm;
 import com.cptbloc.dao.CategorieDAO;
 
-@SuppressWarnings( { "serial", "unused"} )
+@SuppressWarnings( { "serial", "unused" } )
 @WebServlet( "/JUGE/ModifierParticipant" )
 public class ModifierParticipant extends HttpServlet {
     public static final String CONF_DAO_FACTORY     = "daofactory";
@@ -37,27 +37,29 @@ public class ModifierParticipant extends HttpServlet {
     public void init() throws ServletException {
         /* Récupérations d'une instance de notre dao bloc */
         this.participantDAO = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getParticipantDAO();
+        this.categorieDAO = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getCategorieDAO();
     }
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
 
         /* Récupération du paramètre */
 
-        String idParticipant = getValeurParametre( request, PARAM_ID_PARTICIPANT );
+        String idParticipantTX = getValeurParametre( request, PARAM_ID_PARTICIPANT );
 
-        /* Long idParticipant = Long.parseLong( idParticipantTX ); */
+        String str1 = idParticipantTX;
+        Long idParticipant = Long.parseLong(str1);
 
-        
-            Participant participant = new Participant();
-            participant = participantDAO.trouverIdParticipant( idParticipant );
+        Participant participant = new Participant();
+        participant = participantDAO.trouverIdParticipant( idParticipant );
 
-        
-            request.setAttribute("participant", participant);
+        request.setAttribute( "participant", participant );
         this.getServletContext().getRequestDispatcher( VUE_FORM ).forward( request, response );
     }
 
     public void doPost( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
+
+         String idParticipant = getValeurParametre( request, PARAM_ID_PARTICIPANT );
 
         ModificationParticipantForm form = new ModificationParticipantForm( participantDAO, categorieDAO );
 
