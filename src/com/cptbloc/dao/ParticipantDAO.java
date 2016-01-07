@@ -15,7 +15,7 @@ public interface ParticipantDAO {
 
     List<Participant> lister() throws DAOException;
 
-    void MAJParticipant(Long idParticipant ) throws DAOException;
+    void MAJParticipant(Participant participant, Long idParticipant ) throws DAOException;
 
     void supprimer( Participant participant ) throws DAOException;
 

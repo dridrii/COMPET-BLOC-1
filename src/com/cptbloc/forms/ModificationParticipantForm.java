@@ -68,7 +68,7 @@ public final class ModificationParticipantForm {
             traiterCategorie( categorie, participant );
 
             if ( erreurs.isEmpty() ) {
-                participantDAO.MAJParticipant( idParticipant );
+                participantDAO.MAJParticipant( participant, idParticipant );
                 resultat = "Succès de l'inscription.";
             } else {
                 resultat = "Echec de l'inscription.";
@@ -124,20 +124,23 @@ public final class ModificationParticipantForm {
         } catch ( FormValidationException e ) {
             setErreur( CHAMP_AGE, e.getMessage() );
         }
- 
+
     }
 
     private void validationDossard( String dossard, Participant participant, Long idParticipant )
             throws FormValidationException {
+
+        Participant participant2 = new Participant();
+        participant2 = participantDAO.trouverIdParticipant( idParticipant );
+        
+        
         if ( dossard != null ) {
-            
-            Participant participant2 = new Participant();
-            participant2 = participantDAO.trouverIdParticipant( idParticipant );
-
-            if ( participant2.getDossard() == dossard ) {
-
-                throw new FormValidationException( "Ce dossard est déjà attribué" );
-
+            if ( participantDAO.trouverDossard( dossard ) != null ) {
+                if (participant2.getDossard().equals( dossard )) {
+                    
+                }else {
+                    throw new FormValidationException( "Ce dossard est déjà attribué" );
+                }
             }
         } else {
             throw new FormValidationException( "Merci d'entrer un numéro de dossard" );

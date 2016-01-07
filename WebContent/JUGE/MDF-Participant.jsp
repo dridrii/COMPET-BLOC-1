@@ -27,7 +27,7 @@
 
 			<p class="info">${ form.resultat}</p>
 			<input type="submit" value="Soumettre" /> <input type="reset"
-				value="Remettre à zéro" /> <br />
+				value="Remettre à zéro" />  <input type="button" value="Annuler" onclick='location.href="Liste-Participant"'/><br />
 		</form>
 
 	</div>

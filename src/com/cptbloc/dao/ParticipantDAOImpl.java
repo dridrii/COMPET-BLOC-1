@@ -18,7 +18,7 @@ public class ParticipantDAOImpl implements ParticipantDAO {
     private static final String SQL_SELECT_PAR_DOSSARD = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorieParti, resultat FROM Participant WHERE dossard = ?";
     private static final String SQL_SELECT_PAR_ID      = "SELECT idParticipant, dossard, nom, prenom, age, sex, categorieParti, resultat FROM Participant WHERE idParticipant = ?";
     private static final String SQL_INSERT             = "INSERT INTO Participant (dossard, nom, prenom, age, sex, categorieParti) VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE             = "UPDATE Participant SET dossard = '?', nom = '?', prenom = '?', age = '?', sex = '?', categorieParti = '?' WHERE idParticipant = '?'";
+    private static final String SQL_UPDATE             = "UPDATE Participant SET dossard = ?, nom = ?, prenom = ?, age = ?, sex = ?, categorieParti = ? WHERE idParticipant = ?";
     private static final String SQL_DELETE_PAR_ID      = "DELETE FROM Participant WHERE idParticipant =?";
 
     private DAOFactory          daoFactory;
@@ -157,9 +157,9 @@ public class ParticipantDAOImpl implements ParticipantDAO {
 
 
     /* Implémentation de la méthode définie dans l'interface participantDAO */
-    @SuppressWarnings( "null" )
+   
     @Override
-    public void MAJParticipant( Long idParticipant ) throws DAOException {
+    public void MAJParticipant(Participant participant, Long idParticipant ) throws DAOException {
         Connection connexion = null;
         PreparedStatement preparedStatement = null;
         ResultSet valeursAutoGenerees = null;
@@ -172,18 +172,13 @@ public class ParticipantDAOImpl implements ParticipantDAO {
                     participant.getPrenom(),
                     participant.getAge(),
                     participant.getSex(),
-                    participant.getCategorieparti() );
+                    participant.getCategorieparti(),
+                    participant.getidParticipant());
             int statut = preparedStatement.executeUpdate();
             if ( statut == 0 ) {
-                throw new DAOException( "Échec de la création de l'utilisateur, aucune ligne ajoutée dans la table." );
+                throw new DAOException( "Échec de la modification du participant, aucune ligne modifié dans la table." );
             }
-            valeursAutoGenerees = preparedStatement.getGeneratedKeys();
-            if ( valeursAutoGenerees.next() ) {
-                participant.setidParticipant( valeursAutoGenerees.getLong( 1 ) );
-            } else {
-                throw new DAOException(
-                        "Échec de la création de l'utilisateur en base, aucun ID auto-généré retourné." );
-            }
+            
         } catch ( SQLException e ) {
             throw new DAOException( e );
         } finally {

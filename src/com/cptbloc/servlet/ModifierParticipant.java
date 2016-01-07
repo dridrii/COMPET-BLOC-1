@@ -26,10 +26,11 @@ public class ModifierParticipant extends HttpServlet {
     public static final String ATT_BLOC             = "participant";
     public static final String ATT_FORM             = "form";
 
-    public static final String VUE_SUCCESS          = "/JUGE/Resume-Nv-Bloc.jsp";
+    public static final String VUE_SUCCESS          = "/JUGE/ListeParticipant.jsp";
     public static final String VUE_FORM             = "/JUGE/MDF-Participant.jsp";
 
     public static final String PARAM_ID_PARTICIPANT = "idParticipant";
+    public static final String SESSION_PARTICIPANTS = "participants";
 
     private ParticipantDAO     participantDAO;
     private CategorieDAO       categorieDAO;
@@ -59,16 +60,31 @@ public class ModifierParticipant extends HttpServlet {
     public void doPost( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
-         String idParticipant = getValeurParametre( request, PARAM_ID_PARTICIPANT );
-
         ModificationParticipantForm form = new ModificationParticipantForm( participantDAO, categorieDAO );
 
         Participant participant = form.ModifierParticipant( request );
 
         request.setAttribute( ATT_BLOC, participant );
         request.setAttribute( ATT_FORM, form );
-
+        
         if ( form.getErreurs().isEmpty() ) {
+        
+        /* Récupération de la map participant dans la session */
+      HttpSession session = request.getSession();
+      @SuppressWarnings("unchecked")
+      Map<Long, Participant> participants = (HashMap<Long, Participant>) session.getAttribute(SESSION_PARTICIPANTS);
+
+
+      /* Modification du participant modifié dans la map */
+
+      participants.replace( participant.getidParticipant(), participant );
+      
+      /* Enregistrement de la map en session */
+
+      session.setAttribute(SESSION_PARTICIPANTS, participants);
+        
+
+        
             this.getServletContext().getRequestDispatcher( VUE_SUCCESS ).forward( request, response );
         } else {
             this.getServletContext().getRequestDispatcher( VUE_FORM ).forward( request, response );
