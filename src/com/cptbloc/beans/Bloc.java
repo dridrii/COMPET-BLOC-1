@@ -43,8 +43,8 @@ public class Bloc {
         return this.valeurFinal;
     }
 
-    public void setIdBloc( Long IdBloc ) {
-        this.idBloc = IdBloc;
+    public void setIdBloc( Long idBloc ) {
+        this.idBloc = idBloc;
     }
 
     public void setNumBloc( String numBloc ) {

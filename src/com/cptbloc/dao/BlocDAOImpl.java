@@ -15,8 +15,10 @@ import com.cptbloc.beans.Bloc;
 public class BlocDAOImpl implements BlocDAO {
 
     private static final String SQL_SELECT         = "SELECT idBloc, numBloc, couleurDiff, couleurVoie, ouvreur, nbReussi, valeurInit, valeurFinal FROM Bloc ORDER BY idBloc";
+    private static final String SQL_SELECT_PAR_ID  = "SELECT idBloc, numBloc, couleurDiff, couleurVoie, ouvreur, nbReussi, valeurInit, valeurFinal FROM Bloc WHERE idBloc = ?";
     private static final String SQL_SELECT_NUMBLOC = "SELECT idBloc, numBloc, couleurDiff, couleurVoie, ouvreur, nbReussi, valeurInit, valeurFinal FROM Bloc WHERE numBloc = ? ";
     private static final String SQL_INSERT         = "INSERT INTO Bloc (numBloc, couleurDiff, couleurVoie, ouvreur, valeurInit) VALUES (?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE         = "UPDATE Bloc SET numBloc = ?, couleurDiff = ?, couleurVoie = ?, ouvreur = ?, valeurInit = ? WHERE idBloc = ?";
     private static final String SQL_DELETE_PAR_ID  = "DELETE FROM Bloc WHERE idBloc =?";
 
     private DAOFactory          daoFactory;
@@ -26,10 +28,15 @@ public class BlocDAOImpl implements BlocDAO {
     }
 
     @Override
-    public Bloc trouver( String IdBloc ) throws DAOException {
-        return trouver( SQL_SELECT, IdBloc );
+    public Bloc trouver( Long idBloc ) throws DAOException {
+        return trouver( SQL_SELECT, idBloc );
     }
     
+    @Override
+    public Bloc trouverId( Long idBloc ) throws DAOException {
+        return trouver( SQL_SELECT_PAR_ID, idBloc );
+    }
+
     @Override
     public Bloc trouverNumBloc( String numBloc ) throws DAOException {
         return trouverNumBloc( SQL_SELECT_NUMBLOC, numBloc );
@@ -65,6 +72,34 @@ public class BlocDAOImpl implements BlocDAO {
         } finally {
             fermeturesSilencieuses( valeursAutoGenerees, preparedStatement, connexion );
         }
+    }
+
+    @Override
+    public void MAJBloc( Bloc bloc, Long idBloc ) throws DAOException {
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet valeursAutoGenerees = null;
+
+        try {
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee( connexion, SQL_UPDATE, true,
+                    bloc.getNumBloc(),
+                    bloc.getCouleurDiff(),
+                    bloc.getCouleurVoie(),
+                    bloc.getOuvreur(),
+                    bloc.getValeurInit(),
+                    bloc.getIdBloc() );
+            int statut = preparedStatement.executeUpdate();
+            if ( statut == 0 ) {
+                throw new DAOException( "Échec de la modification du bloc, aucune ligne modifié dans la table." );
+            }
+
+        } catch ( SQLException e ) {
+            throw new DAOException( e );
+        } finally {
+            fermeturesSilencieuses( valeursAutoGenerees, preparedStatement, connexion );
+        }
+
     }
 
     @Override
@@ -143,7 +178,7 @@ public class BlocDAOImpl implements BlocDAO {
 
         return bloc;
     }
-    
+
     private Bloc trouverNumBloc( String sql, Object... objets ) throws DAOException {
         Connection connexion = null;
         PreparedStatement preparedStatement = null;

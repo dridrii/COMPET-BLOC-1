@@ -4,7 +4,7 @@
 
 <header>
 
-	<a href="/COMPET-BLOC-1/Index-Juge"> <img class="img-logo"
+	<a href="/COMPET-BLOC-1/JUGE/Index-Juge"> <img class="img-logo"
 		src=<c:url value="/src/Logo-grimpe-bloc.png"/> alt="Grimpebloc"
 		id="logo">
 	</a>
@@ -12,7 +12,7 @@
 	<div class="container">
 		<nav class="navbar navbar-default">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/COMPET-BLOC-1/Index-Juge">COMPET-BLOC</a>
+				<a class="navbar-brand" href="/COMPET-BLOC-1/JUGE/Index-Juge">COMPET-BLOC</a>
 			</div>
 
 			<div>

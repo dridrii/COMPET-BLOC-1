@@ -45,7 +45,7 @@
 							<%-- Lien vers la servlet de suppression, avec passage du nom du client - c'est-à-dire la clé de la Map - en paramètre grâce à la balise <c:param/>. --%>
 
 							<td class="action"><span class="glyphicon glyphicon-pencil"></span><a
-								href="<c:url value="/JUGE/modificationBloc"><c:param name="idBloc" value="${ mapClients.key }" /></c:url>">
+								href="<c:url value="/JUGE/ModifierBloc"><c:param name="IdBloc" value="${ mapBlocs.key }" /></c:url>">
 									<img src="<c:url value="/inc/modifier.png"/>" alt="Modifier" />
 							</a></td>
 						</tr>

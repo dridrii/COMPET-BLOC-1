@@ -3,6 +3,10 @@
 <link type="text/css" rel="stylsheet"
 	href=" <c:url value="inc/css/tuto.css"/>" />
 
+<input type="hidden" id="idBlocTX" name="idBlocTX"
+	value="<c:out value="${bloc.idBloc}"/>" size="30"
+	maxlength="30" />
+
 
 <label for="NumBlocTX">Numéro du bloc<span class="requis">*</span></label>
 <input type="number" id="NumBlocTX" value="<c:out value="${bloc.numBloc}"/>" name="NumBlocTX" size="30"
