@@ -93,8 +93,7 @@ public class DAOFactory {
     }
 
     /*
-     * Méthodes de récupération de l'implémentation des différents DAO (un seul
-     * pour le moment)
+     * Méthodes de récupération de l'implémentation des différents DAO 
      */
     public JugeDAO getJugeDAO() {
         return new JugeDAOImpl( this );
@@ -110,6 +109,11 @@ public class DAOFactory {
     }
     public BlocDAO getBlocDAO() {
         return new BlocDAOImpl( this );
+
+    }
+    
+    public ResultatBPDAO getResultatBPDAO() {
+        return new ResultatBPDAOImpl( this );
 
     }
 }

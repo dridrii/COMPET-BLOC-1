@@ -4,6 +4,7 @@
 	version="3.0">
 
 
+
 	<filter>
 		<filter-name>JugeFilter</filter-name>
 		<filter-class>com.cptbloc.filters.JugeFilter</filter-class>

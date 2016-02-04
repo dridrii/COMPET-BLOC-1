@@ -38,10 +38,10 @@ public final class CreationBlocForm {
         String couleurVoie = getValeurChamp( request, CHAMP_COULEURVOIE );
         String ouvreur = getValeurChamp( request, CHAMP_OUVREUR );
         String valeurInitTX = getValeurChamp( request, CHAMP_VALEURINIT );
-
+         
         String str = valeurInitTX;
         int valeurInit = Integer.parseInt( str );
-
+      
         Bloc bloc = new Bloc();
         try {
             traiterNumBLoc( numBloc, bloc );

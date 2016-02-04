@@ -19,6 +19,7 @@
 				<ul class="nav navbar-nav">
 					<%--Première partie de la barre de navigation --%>
 					<li><a href="#">News</a></li>
+					<li><a href="/COMPET-BLOC-1/JUGE/NouveauResultat">Nouveau Résultat</a></li>
 
 					<li class="dropdown">
 						<%--Menu déroulant participant --%> <a data-toggle="dropdown"
