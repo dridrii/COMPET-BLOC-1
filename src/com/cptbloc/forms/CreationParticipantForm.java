@@ -43,17 +43,9 @@ public final class CreationParticipantForm {
         String agetx = getValeurChamp( request, CHAMP_AGE );
         String sex = getValeurChamp( request, CHAMP_SEX );
 
-        if (agetx.equals( null )){
-            String str = agetx;
-            int age = Integer.parseInt( str );
-            
-            age = 0;
-        }
-        
-        
-        String str = agetx;
-        int age = Integer.parseInt( str );
-        
+        // String str = agetx;
+        // int age = Integer.parseInt( str );
+
         int idDefCategorie = 1;
 
         Categorie categorie = new Categorie();
@@ -64,7 +56,7 @@ public final class CreationParticipantForm {
             traiterDossard( dossard, participant );
             traiterNom( nom, participant );
             traiterPrenom( prenom, participant );
-            traiterAge( age, participant );
+            traiterAge( agetx, participant );
             participant.setSex( sex );
             traiterCategorie( categorie, participant );
 
@@ -110,14 +102,17 @@ public final class CreationParticipantForm {
         participant.setPrenom( prenom );
     }
 
-    private void traiterAge( int age, Participant participant ) {
+    private void traiterAge( String agetx, Participant participant ) {
+        int valeurage = -1;
         try {
-            validationAge( age );
+            valeurage = validationAge( agetx );
         } catch ( FormValidationException e ) {
             setErreur( CHAMP_AGE, e.getMessage() );
         }
-               
-        participant.setAge( age );
+
+        if ( valeurage > 0 ) {
+            participant.setAge( valeurage );
+        }
     }
 
     private void traiterCategorie( Categorie categorie, Participant participant ) {
@@ -135,7 +130,7 @@ public final class CreationParticipantForm {
 
             }
         } else {
-            throw new FormValidationException( "Merci d'entrer un numéro de dossard" );
+            throw new FormValidationException( "Merci d'entrer un numéro de dossard." );
         }
     }
 
@@ -150,19 +145,41 @@ public final class CreationParticipantForm {
     }
 
     private void validationPrenom( String prenom ) throws FormValidationException {
-        if ( prenom != null && prenom.length() < 3 ) {
-            throw new FormValidationException( "Le prénom d'un participant doit contenir au moins 3 caractères." );
+        if ( prenom != null ) {
+            if ( prenom.length() < 3 ) {
+                throw new FormValidationException( "Le prénom d'un participant doit contenir au moins 3 caractères." );
+            }
+        } else {
+            throw new FormValidationException( "Merci d'entrer un prénom." );
         }
+
     }
 
-    private void validationAge( int age ) throws FormValidationException {
+    private int validationAge( String agetx ) throws FormValidationException {
+        int temp;
+        if ( agetx != null ) {
+            try {
+                temp = Integer.parseInt( agetx );
+                if ( temp < 0 ) {
+                    throw new FormValidationException( "L'age doit être positif" );
+                } else if ( temp > 99 ) {
+                    throw new FormValidationException( "Le croulant que tu as devant toi est un peu vieux !" );
+                } else if ( temp < 5 ) {
+                    throw new FormValidationException( "Cette petite chose est un peut jeune non ?" );
+                }
 
-        
-        if ( age > 0 && age < 99 ) {
+            } catch ( NumberFormatException e ) {
+                temp = -1;
+                throw new FormValidationException( "L'age doit être un nombre." );
+
+            }
 
         } else {
-            throw new FormValidationException( "Merci d'insérer votre age !" );
+            temp = -1;
+            throw new FormValidationException( "Merci d'entrer un age" );
+
         }
+        return temp;
     }
 
     private void validationCategorie( Categorie categorie, Participant participant ) throws FormValidationException {

@@ -3,7 +3,7 @@ package com.cptbloc.beans;
 public class Bloc {
     
     private Long   idBloc;
-    private String numBloc;
+    private int numBloc;
     private String couleurDiff;
     private String couleurVoie;
     private String ouvreur;
@@ -15,7 +15,7 @@ public class Bloc {
         return this.idBloc;
     }
 
-    public String getNumBloc() {
+    public int getNumBloc() {
         return this.numBloc;
     }
 
@@ -47,7 +47,7 @@ public class Bloc {
         this.idBloc = idBloc;
     }
 
-    public void setNumBloc( String numBloc ) {
+    public void setNumBloc( int numBloc ) {
         this.numBloc = numBloc;
     }
 

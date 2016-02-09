@@ -46,7 +46,13 @@ public class NouveauResultat extends HttpServlet {
 
         NouveauResultatForm form = new NouveauResultatForm( participantDAO, blocDAO, resultatBPDAO );
 
-        ResultatBP resultatBP = form.NouveauResultat( request );
+        ResultatBP resultatBP = null;
+        try {
+            resultatBP = form.NouveauResultat( request );
+        } catch ( Exception e ) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         request.setAttribute( ATT_PARTICIPANT, resultatBP );
         request.setAttribute( ATT_FORM, form );

@@ -1,5 +1,6 @@
 package com.cptbloc.forms;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,17 +39,17 @@ public final class CreationBlocForm {
         String couleurVoie = getValeurChamp( request, CHAMP_COULEURVOIE );
         String ouvreur = getValeurChamp( request, CHAMP_OUVREUR );
         String valeurInitTX = getValeurChamp( request, CHAMP_VALEURINIT );
-         
-        String str = valeurInitTX;
-        int valeurInit = Integer.parseInt( str );
-      
+        
+        int NbReussi = 0;
+        
         Bloc bloc = new Bloc();
         try {
             traiterNumBLoc( numBloc, bloc );
             bloc.setCouleurDiff( couleurDiff );
             bloc.setCouleurVoie( couleurVoie );
             bloc.setOuvreur( ouvreur );
-            bloc.setValeurInit( valeurInit );
+            bloc.setNbReussi( NbReussi );
+            traiterValeurInit( valeurInitTX, bloc );
 
             if ( erreurs.isEmpty() ) {
                 blocDAO.creer( bloc );
@@ -66,22 +67,77 @@ public final class CreationBlocForm {
     }
 
     private void traiterNumBLoc( String numBloc, Bloc bloc ) {
+        int valeurNumBloc = -1;
+
         try {
-            validationNumBloc( numBloc );
+            valeurNumBloc = validationNumBloc( numBloc );
         } catch ( FormValidationException e ) {
             setErreur( CHAMP_NUMBLOC, e.getMessage() );
         }
-        bloc.setNumBloc(numBloc);
+        if ( valeurNumBloc > 0 ) {
+            bloc.setNumBloc( valeurNumBloc );
+        }
     }
 
-    private void validationNumBloc( String numBloc ) throws FormValidationException {
+    private void traiterValeurInit( String valeurInitTX, Bloc bloc ) {
+        int valeurInit = -1;
+
+        try {
+            valeurInit = validationValeurInit( valeurInitTX );
+        } catch ( FormValidationException e ) {
+
+        }
+        bloc.setValeurInit( valeurInit );
+    }
+
+    private int validationNumBloc( String numBloc ) throws FormValidationException {
+        int temp;
+
         if ( numBloc != null ) {
-            if ( blocDAO.trouverNumBloc( numBloc ) != null ) {
-                throw new FormValidationException( "Ce Numéro de bloc est déjà attribué." );
+            try {
+                temp = Integer.parseInt( numBloc );
+                if ( temp < 0 ) {
+                    throw new FormValidationException( "Le numéro de bloc doit être positif !" );
+                }
+                if ( blocDAO.trouverNumBloc( temp ) != null ) {
+                    throw new FormValidationException( "Ce Numéro de bloc est déjà attribué." );
+                }
+            } catch ( NumberFormatException e ) {
+                temp = -1;
+                throw new FormValidationException( "L'age doit être un nombre." );
+
+            } catch ( NullPointerException e ) {
+                throw new FormValidationException( "Aucune valeur n'a été insérer" );
             }
+
         } else {
+            temp = -1;
             throw new FormValidationException( "Merci de chercher le bloc le plus élevé." );
         }
+        return temp;
+    }
+
+    private int validationValeurInit( String valeurInitTX ) throws FormValidationException {
+        int temp;
+        if ( valeurInitTX != null ) {
+            try {
+                temp = Integer.parseInt( valeurInitTX );
+
+                if ( temp < 0 ) {
+                    throw new FormValidationException( "La valeur du bloc doit être positive !" );
+
+                }
+
+            } catch ( NumberFormatException e ) {
+                temp = -1;
+                throw new FormValidationException( "La valeur initiale doit être un nombre. " );
+            }
+        }else {
+            temp = -1 ;
+            throw new FormValidationException( "Merci d'entrer une valeur." );
+        }
+
+        return temp;
     }
 
     private void setErreur( String champ, String message ) {

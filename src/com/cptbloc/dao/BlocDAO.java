@@ -11,7 +11,7 @@ public interface BlocDAO {
     
     Bloc trouverId( Long idBloc ) throws DAOException;
     
-    Bloc trouverNumBloc( String numBloc ) throws DAOException;
+    Bloc trouverNumBloc( int numBloc ) throws DAOException;
 
     List<Bloc> lister() throws DAOException;
     

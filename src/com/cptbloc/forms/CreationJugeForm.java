@@ -58,8 +58,7 @@ public final class CreationJugeForm {
             resultat = "Echec de l'insciption : une erreur imprévue et survenue, merci de réessayer dans quelques instants.";
             e.printStackTrace();
         }
-        
-        
+
         return juge;
     }
 
@@ -123,8 +122,12 @@ public final class CreationJugeForm {
     }
 
     private void validationPrenom( String prenom ) throws FormValidationException {
-        if ( prenom != null && prenom.length() < 3 ) {
-            throw new FormValidationException( "Le prénom d'un Juge doit contenir au moins 3 caractères." );
+        if ( prenom != null ) {
+            if ( prenom != null && prenom.length() < 3 ) {
+                throw new FormValidationException( "Le prénom d'un Juge doit contenir au moins 3 caractères." );
+            }
+        } else {
+            throw new FormValidationException( "Merci d'entrer un prénom" );
         }
     }
 

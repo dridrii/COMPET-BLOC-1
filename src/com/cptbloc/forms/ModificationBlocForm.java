@@ -35,7 +35,7 @@ public final class ModificationBlocForm {
 
     public Bloc ModifierBloc( HttpServletRequest request ) {
         String idBlocTX = getValeurChamp( request, CHAMP_IDBLOC );
-        String numBloc = getValeurChamp( request, CHAMP_NUMBLOC );
+        String numBlocTX = getValeurChamp( request, CHAMP_NUMBLOC );
         String couleurDiff = getValeurChamp( request, CHAMP_COULEURDIFF );
         String couleurVoie = getValeurChamp( request, CHAMP_COULEURVOIE );
         String ouvreur = getValeurChamp( request, CHAMP_OUVREUR );
@@ -49,8 +49,8 @@ public final class ModificationBlocForm {
 
         Bloc bloc = new Bloc();
         try {
-            bloc.setIdBloc( idBloc);
-            traiterNumBLoc( numBloc, bloc, idBloc );
+            bloc.setIdBloc( idBloc );
+            traiterNumBLoc( numBlocTX, bloc, idBloc );
             bloc.setCouleurDiff( couleurDiff );
             bloc.setCouleurVoie( couleurVoie );
             bloc.setOuvreur( ouvreur );
@@ -71,31 +71,35 @@ public final class ModificationBlocForm {
         return bloc;
     }
 
-    private void traiterNumBLoc( String numBloc, Bloc bloc, Long idBloc ) {
+    private void traiterNumBLoc( String numBlocTX, Bloc bloc, Long idBloc ) {
+        int valeurNumBloc = -1;
         try {
-            validationNumBloc( numBloc, bloc, idBloc );
+            valeurNumBloc = validationNumBloc( numBlocTX, bloc, idBloc );
         } catch ( FormValidationException e ) {
             setErreur( CHAMP_NUMBLOC, e.getMessage() );
         }
-        bloc.setNumBloc( numBloc );
+        bloc.setNumBloc( valeurNumBloc );
     }
 
-    private void validationNumBloc( String numBloc, Bloc bloc, Long idBLoc ) throws FormValidationException {
+    private int validationNumBloc( String numBlocTX, Bloc bloc, Long idBLoc ) throws FormValidationException {
+        int temp;
 
         Bloc bloc2 = new Bloc();
         bloc2 = blocDAO.trouverId( idBLoc );
 
-        if ( numBloc != null ) {
-            if ( blocDAO.trouverNumBloc( numBloc ) != null ) {
-                if ( bloc2.getNumBloc().equals( numBloc ) ) {
+        temp = Integer.parseInt( numBlocTX );
 
-                } else {
+        if ( numBlocTX != null ) {
+
+            if ( blocDAO.trouverNumBloc( temp ) != null ) {
+                if ( bloc2.getNumBloc() != temp ) {
                     throw new FormValidationException( "Ce Numéro de bloc est déjà attribué." );
                 }
             }
         } else {
             throw new FormValidationException( "Merci d'entrer un numéro de bloc" );
         }
+        return temp;
     }
 
     private void setErreur( String champ, String message ) {

@@ -14,7 +14,7 @@
 <label for="nomParticipant">Nom<span class="requis">*</span></label>
 <input type="text" id="nomParticipant" name="nomParticipant"
 	value="<c:out value="${participant.nom}"/>" size="30" maxlength="30" />
-<span class="erreur">${form.erreurs['nomPartcipant']}</span>
+<span class="erreur">${form.erreurs['nomParticipant']}</span>
 <br />
 
 <label for="prenomParticipant">Prénom<span class="requis">*</span></label>

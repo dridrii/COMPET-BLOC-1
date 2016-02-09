@@ -5,14 +5,15 @@
 
 <label for="dossardParticipant">Dossard<span class="requis">*</span></label>
 <input type="number" id="dossardParticipant" name="dossardParticipant"
-	value="<c:out value="${participant.dossard}"/>" size="30"
-	maxlength="30" />
+	value="<c:out value="${participant.dossard}"/>" size="3"
+	maxlength="3" />
 <span class="erreur">${form.erreurs['dossardParticipant']}</span>
 
 <br />
 
 <label for="NumBlocTX">Numéro du bloc<span class="requis">*</span></label>
 <input type="number" id="NumBlocTX"
-	value="<c:out value="${bloc.numBloc}"/>" name="NumBlocTX" size="30"
-	maxlength="30" />
+	value="<c:out value="${bloc.numBloc}"/>" name="NumBlocTX" size="3"
+	maxlength="3" />
+	<span class="erreur">${form.erreurs['NumBlocTX']}</span>
 <br />

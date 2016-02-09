@@ -17,7 +17,7 @@ public class BlocDAOImpl implements BlocDAO {
     private static final String SQL_SELECT         = "SELECT idBloc, numBloc, couleurDiff, couleurVoie, ouvreur, nbReussi, valeurInit, valeurFinal FROM Bloc ORDER BY idBloc";
     private static final String SQL_SELECT_PAR_ID  = "SELECT idBloc, numBloc, couleurDiff, couleurVoie, ouvreur, nbReussi, valeurInit, valeurFinal FROM Bloc WHERE idBloc = ?";
     private static final String SQL_SELECT_NUMBLOC = "SELECT idBloc, numBloc, couleurDiff, couleurVoie, ouvreur, nbReussi, valeurInit, valeurFinal FROM Bloc WHERE numBloc = ? ";
-    private static final String SQL_INSERT         = "INSERT INTO Bloc (numBloc, couleurDiff, couleurVoie, ouvreur, valeurInit) VALUES (?, ?, ?, ?, ?)";
+    private static final String SQL_INSERT         = "INSERT INTO Bloc (numBloc, couleurDiff, couleurVoie, ouvreur, nbReussi, valeurInit) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE         = "UPDATE Bloc SET numBloc = ?, couleurDiff = ?, couleurVoie = ?, ouvreur = ?, valeurInit = ? WHERE idBloc = ?";
     private static final String SQL_DELETE_PAR_ID  = "DELETE FROM Bloc WHERE idBloc =?";
 
@@ -31,14 +31,14 @@ public class BlocDAOImpl implements BlocDAO {
     public Bloc trouver( Long idBloc ) throws DAOException {
         return trouver( SQL_SELECT, idBloc );
     }
-    
+
     @Override
     public Bloc trouverId( Long idBloc ) throws DAOException {
         return trouver( SQL_SELECT_PAR_ID, idBloc );
     }
 
     @Override
-    public Bloc trouverNumBloc( String numBloc ) throws DAOException {
+    public Bloc trouverNumBloc( int numBloc ) throws DAOException {
         return trouverNumBloc( SQL_SELECT_NUMBLOC, numBloc );
     }
 
@@ -56,6 +56,7 @@ public class BlocDAOImpl implements BlocDAO {
                     bloc.getCouleurDiff(),
                     bloc.getCouleurVoie(),
                     bloc.getOuvreur(),
+                    bloc.getNbReussi(),
                     bloc.getValeurInit() );
             int statut = preparedStatement.executeUpdate();
             if ( statut == 0 ) {
@@ -217,7 +218,7 @@ public class BlocDAOImpl implements BlocDAO {
         Bloc bloc = new Bloc();
 
         bloc.setIdBloc( resultSet.getLong( "idBloc" ) );
-        bloc.setNumBloc( resultSet.getString( "numBloc" ) );
+        bloc.setNumBloc( resultSet.getInt( "numBloc" ) );
         bloc.setCouleurDiff( resultSet.getString( "couleurDiff" ) );
         bloc.setCouleurVoie( resultSet.getString( "couleurVoie" ) );
         bloc.setOuvreur( resultSet.getString( "ouvreur" ) );
